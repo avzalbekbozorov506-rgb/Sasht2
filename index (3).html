@@ -1,0 +1,1188 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TLF Academy — Фармацевтическое обучение</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root {
+  --primary: #0A4DA6;
+  --primary-dark: #083A80;
+  --primary-light: #E8F0FE;
+  --secondary: #00B8A9;
+  --secondary-light: #E0F7F6;
+  --accent: #FF6B35;
+  --bg: #F4F7FC;
+  --surface: #FFFFFF;
+  --surface2: #F0F4FB;
+  --border: #E2E8F4;
+  --text: #0D1B3E;
+  --text2: #4A5578;
+  --text3: #8B95B5;
+  --success: #10B981;
+  --warning: #F59E0B;
+  --danger: #EF4444;
+  --gold: #F59E0B;
+  --radius: 16px;
+  --radius-sm: 10px;
+  --shadow: 0 2px 16px rgba(10,77,166,0.08);
+  --shadow-md: 0 8px 32px rgba(10,77,166,0.12);
+  --shadow-lg: 0 16px 48px rgba(10,77,166,0.16);
+}
+[data-theme="dark"] {
+  --primary: #4A90E2;
+  --primary-dark: #357ABD;
+  --primary-light: #0D1F3C;
+  --secondary: #00D4C4;
+  --secondary-light: #0A2A28;
+  --bg: #070C1A;
+  --surface: #0D1526;
+  --surface2: #111C35;
+  --border: #1E2D4D;
+  --text: #E8EEFF;
+  --text2: #8B9CC4;
+  --text3: #4A5578;
+  --shadow: 0 2px 16px rgba(0,0,0,0.3);
+  --shadow-md: 0 8px 32px rgba(0,0,0,0.4);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--text);font-size:15px;line-height:1.6;min-height:100vh;transition:background .3s,color .3s}
+
+/* SCROLLBAR */
+::-webkit-scrollbar{width:6px}
+::-webkit-scrollbar-track{background:var(--surface2)}
+::-webkit-scrollbar-thumb{background:var(--primary);border-radius:3px}
+
+/* NAV */
+.nav{background:var(--surface);border-bottom:1px solid var(--border);position:sticky;top:0;z-index:1000;backdrop-filter:blur(20px)}
+.nav-inner{max-width:1280px;margin:0 auto;padding:0 24px;display:flex;align-items:center;height:64px;gap:8px}
+.logo{display:flex;align-items:center;gap:12px;text-decoration:none;margin-right:8px}
+.logo-mark{width:40px;height:40px;background:linear-gradient(135deg,var(--primary),var(--secondary));border-radius:10px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.logo-mark svg{width:22px;height:22px;fill:#fff}
+.logo-name{font-family:'Manrope',sans-serif;font-weight:800;font-size:18px;color:var(--text);letter-spacing:-0.5px}
+.logo-name span{color:var(--primary)}
+.logo-sub{font-size:10px;color:var(--text3);font-weight:500;letter-spacing:0.5px;text-transform:uppercase}
+.nav-spacer{flex:1}
+.nav-links{display:flex;gap:2px}
+.nav-link{padding:7px 14px;border-radius:8px;font-size:13px;font-weight:500;color:var(--text2);cursor:pointer;border:none;background:none;transition:all .15s;text-decoration:none}
+.nav-link:hover,.nav-link.active{background:var(--primary-light);color:var(--primary)}
+.nav-actions{display:flex;align-items:center;gap:8px;margin-left:8px}
+.lang-btn{padding:5px 10px;border-radius:6px;border:1px solid var(--border);background:var(--surface2);color:var(--text2);font-size:12px;font-weight:600;cursor:pointer;transition:all .15s}
+.lang-btn.active{background:var(--primary);color:#fff;border-color:var(--primary)}
+.theme-toggle{width:36px;height:36px;border-radius:8px;border:1px solid var(--border);background:var(--surface2);cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:17px;transition:all .15s}
+.theme-toggle:hover{background:var(--primary-light)}
+.user-btn{display:flex;align-items:center;gap:8px;padding:6px 12px 6px 6px;border-radius:20px;border:1px solid var(--border);background:var(--surface2);cursor:pointer;transition:all .15s}
+.user-btn:hover{border-color:var(--primary)}
+.user-avatar{width:28px;height:28px;border-radius:50%;background:linear-gradient(135deg,var(--primary),var(--secondary));display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;color:#fff}
+.user-name{font-size:13px;font-weight:500;color:var(--text)}
+.hamburger{display:none;width:36px;height:36px;border-radius:8px;border:1px solid var(--border);background:var(--surface2);cursor:pointer;align-items:center;justify-content:center}
+.hamburger svg{width:18px;height:18px;stroke:var(--text2);fill:none;stroke-width:2}
+.mobile-nav{display:none;position:fixed;top:64px;left:0;right:0;background:var(--surface);border-bottom:1px solid var(--border);padding:12px;z-index:999;flex-direction:column;gap:4px;box-shadow:var(--shadow-md)}
+.mobile-nav.open{display:flex}
+
+/* PAGES */
+.page{display:none;max-width:1280px;margin:0 auto;padding:32px 24px 100px}
+.page.active{display:block}
+
+/* HERO */
+.hero{background:linear-gradient(135deg,#0A4DA6 0%,#0066CC 50%,#00B8A9 100%);border-radius:24px;padding:56px 48px;margin-bottom:40px;position:relative;overflow:hidden;color:#fff}
+.hero::before{content:'';position:absolute;top:-60px;right:-60px;width:300px;height:300px;background:rgba(255,255,255,0.05);border-radius:50%}
+.hero::after{content:'';position:absolute;bottom:-80px;right:100px;width:200px;height:200px;background:rgba(0,184,169,0.15);border-radius:50%}
+.hero-badge{display:inline-flex;align-items:center;gap:6px;background:rgba(255,255,255,0.15);border:1px solid rgba(255,255,255,0.2);border-radius:20px;padding:5px 14px;font-size:12px;font-weight:600;margin-bottom:20px;letter-spacing:0.3px}
+.hero-badge::before{content:'';width:6px;height:6px;background:#00B8A9;border-radius:50%;animation:pulse 2s infinite}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:0.4}}
+.hero h1{font-family:'Manrope',sans-serif;font-size:42px;font-weight:800;line-height:1.15;margin-bottom:16px;letter-spacing:-1px;max-width:600px}
+.hero h1 span{color:#7DD3FC}
+.hero p{font-size:17px;opacity:0.85;max-width:540px;line-height:1.6;margin-bottom:32px}
+.hero-btns{display:flex;gap:12px;flex-wrap:wrap}
+.btn-hero{padding:14px 28px;border-radius:12px;font-size:15px;font-weight:600;cursor:pointer;border:none;transition:all .2s;text-decoration:none;display:inline-flex;align-items:center;gap:8px}
+.btn-hero-primary{background:#fff;color:var(--primary)}
+.btn-hero-primary:hover{background:#F0F7FF;transform:translateY(-1px);box-shadow:0 8px 24px rgba(0,0,0,0.2)}
+.btn-hero-secondary{background:rgba(255,255,255,0.12);color:#fff;border:1px solid rgba(255,255,255,0.25)}
+.btn-hero-secondary:hover{background:rgba(255,255,255,0.2)}
+.hero-stats{position:absolute;bottom:40px;right:48px;display:flex;gap:32px}
+.hero-stat{text-align:center}
+.hero-stat-num{font-family:'Manrope',sans-serif;font-size:28px;font-weight:800;display:block}
+.hero-stat-label{font-size:12px;opacity:0.7;font-weight:500}
+
+/* STATS ROW */
+.stats-row{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-bottom:40px}
+.stat-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:20px 24px;display:flex;align-items:center;gap:16px;transition:all .2s;cursor:pointer}
+.stat-card:hover{box-shadow:var(--shadow-md);transform:translateY(-2px)}
+.stat-icon{width:48px;height:48px;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:22px;flex-shrink:0}
+.stat-icon.blue{background:var(--primary-light)}
+.stat-icon.teal{background:var(--secondary-light)}
+.stat-icon.orange{background:#FFF3ED}
+.stat-icon.green{background:#ECFDF5}
+.stat-num{font-family:'Manrope',sans-serif;font-size:26px;font-weight:800;color:var(--text);line-height:1}
+.stat-label{font-size:12px;color:var(--text3);margin-top:3px;font-weight:500}
+
+/* SECTION */
+.section-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:20px}
+.section-title{font-family:'Manrope',sans-serif;font-size:20px;font-weight:700;color:var(--text)}
+.section-sub{font-size:13px;color:var(--text3);margin-top:2px}
+.view-all{font-size:13px;font-weight:500;color:var(--primary);cursor:pointer;background:none;border:none;display:flex;align-items:center;gap:4px}
+
+/* COURSE CARDS */
+.courses-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:16px;margin-bottom:40px}
+.course-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;cursor:pointer;transition:all .2s;position:relative}
+.course-card:hover{box-shadow:var(--shadow-md);transform:translateY(-3px);border-color:var(--primary)}
+.course-card-header{padding:20px 20px 16px;display:flex;align-items:flex-start;gap:14px}
+.course-emoji{width:50px;height:50px;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:24px;flex-shrink:0}
+.course-info{flex:1;min-width:0}
+.course-category{font-size:10px;font-weight:700;color:var(--primary);text-transform:uppercase;letter-spacing:0.8px;margin-bottom:4px}
+.course-title{font-size:15px;font-weight:600;color:var(--text);line-height:1.3}
+.course-desc{font-size:12px;color:var(--text3);margin-top:4px;line-height:1.5}
+.course-card-footer{padding:12px 20px 16px;border-top:1px solid var(--border);display:flex;align-items:center;justify-content:space-between}
+.course-meta{display:flex;align-items:center;gap:12px}
+.course-meta-item{font-size:12px;color:var(--text3);display:flex;align-items:center;gap:4px}
+.course-progress{height:4px;background:var(--border);border-radius:2px;overflow:hidden;margin:8px 20px 0}
+.course-progress-fill{height:100%;background:linear-gradient(90deg,var(--primary),var(--secondary));border-radius:2px;transition:width .5s}
+.course-badge{position:absolute;top:12px;right:12px;padding:3px 10px;border-radius:20px;font-size:10px;font-weight:700;letter-spacing:0.3px}
+.badge-new{background:var(--secondary-light);color:var(--secondary)}
+.badge-hot{background:#FFF3ED;color:var(--accent)}
+.badge-done{background:#ECFDF5;color:var(--success)}
+[data-theme="dark"] .badge-new{background:#0A2A28;color:#00D4C4}
+[data-theme="dark"] .badge-hot{background:#2A1A0D;color:#FF8C5A}
+[data-theme="dark"] .badge-done{background:#0A2A1A;color:#34D399}
+
+/* LESSON VIEW */
+.lesson-layout{display:grid;grid-template-columns:300px 1fr;gap:24px;align-items:start}
+.lesson-sidebar{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;position:sticky;top:88px}
+.sidebar-header{padding:16px 20px;border-bottom:1px solid var(--border);background:var(--primary);color:#fff}
+.sidebar-header h3{font-size:14px;font-weight:600}
+.sidebar-header p{font-size:11px;opacity:0.7;margin-top:2px}
+.sidebar-progress{padding:12px 20px;border-bottom:1px solid var(--border);background:var(--surface2)}
+.sidebar-prog-bar{height:6px;background:var(--border);border-radius:3px;overflow:hidden;margin-top:6px}
+.sidebar-prog-fill{height:100%;background:linear-gradient(90deg,var(--primary),var(--secondary));border-radius:3px}
+.sidebar-lessons{max-height:60vh;overflow-y:auto}
+.sidebar-lesson{padding:12px 20px;display:flex;align-items:center;gap:10px;cursor:pointer;border-bottom:1px solid var(--border);transition:all .15s}
+.sidebar-lesson:hover,.sidebar-lesson.active{background:var(--primary-light)}
+.sidebar-lesson.active .sl-num{background:var(--primary);color:#fff}
+.sidebar-lesson.done .sl-num{background:var(--success);color:#fff}
+.sl-num{width:24px;height:24px;border-radius:6px;background:var(--surface2);border:1px solid var(--border);display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:600;color:var(--text2);flex-shrink:0}
+.sl-info{flex:1;min-width:0}
+.sl-title{font-size:13px;font-weight:500;color:var(--text);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.sl-dur{font-size:11px;color:var(--text3)}
+.lesson-content{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:32px}
+
+/* AUDIO PLAYER */
+.audio-player{background:linear-gradient(135deg,var(--primary),#0066CC);border-radius:var(--radius);padding:24px;margin-bottom:24px;color:#fff}
+.ap-title{font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:0.8px;opacity:0.7;margin-bottom:4px}
+.ap-name{font-family:'Manrope',sans-serif;font-size:18px;font-weight:700;margin-bottom:16px}
+.ap-wave{height:56px;background:rgba(255,255,255,0.1);border-radius:8px;display:flex;align-items:center;padding:0 12px;gap:2px;overflow:hidden;margin-bottom:14px;cursor:pointer;position:relative}
+.ap-bar{width:3px;border-radius:2px;background:rgba(255,255,255,0.25);transition:background .1s;flex-shrink:0}
+.ap-bar.played{background:rgba(255,255,255,0.9)}
+.ap-bar.active{background:#7DD3FC}
+.ap-controls{display:flex;align-items:center;gap:10px}
+.ap-btn{width:42px;height:42px;border-radius:50%;border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all .15s;flex-shrink:0}
+.ap-play{background:#fff}
+.ap-play:hover{background:#F0F7FF;transform:scale(1.05)}
+.ap-play svg{width:16px;height:16px;fill:var(--primary)}
+.ap-skip{background:rgba(255,255,255,0.15)}
+.ap-skip:hover{background:rgba(255,255,255,0.25)}
+.ap-skip svg{width:14px;height:14px;fill:#fff}
+.ap-progress{flex:1}
+.ap-range{width:100%;height:4px;appearance:none;background:rgba(255,255,255,0.2);border-radius:2px;outline:none;cursor:pointer}
+.ap-range::-webkit-slider-thumb{appearance:none;width:14px;height:14px;border-radius:50%;background:#fff;cursor:pointer}
+.ap-times{display:flex;justify-content:space-between;margin-top:4px}
+.ap-times span{font-size:11px;opacity:0.7}
+.ap-speed-row{display:flex;align-items:center;gap:6px;margin-top:10px}
+.ap-speed-label{font-size:11px;opacity:0.6;margin-right:2px}
+.ap-speed-btn{padding:3px 9px;border-radius:5px;border:1px solid rgba(255,255,255,0.2);background:none;color:rgba(255,255,255,0.7);font-size:11px;cursor:pointer;transition:all .15s}
+.ap-speed-btn.active{background:rgba(255,255,255,0.2);color:#fff}
+.ap-dl{padding:5px 12px;border-radius:6px;border:1px solid rgba(255,255,255,0.2);background:rgba(255,255,255,0.1);color:rgba(255,255,255,0.8);font-size:12px;cursor:pointer;margin-left:auto;text-decoration:none;display:flex;align-items:center;gap:5px}
+.ap-dl:hover{background:rgba(255,255,255,0.2)}
+.ap-no-file{display:flex;flex-direction:column;align-items:center;justify-content:center;padding:16px;background:rgba(255,255,255,0.08);border-radius:8px;text-align:center}
+.ap-no-file p{font-size:13px;opacity:0.7;margin-top:6px}
+
+/* LESSON TEXT */
+.lesson-text h2{font-family:'Manrope',sans-serif;font-size:22px;font-weight:700;margin-bottom:12px;color:var(--text)}
+.lesson-text p{font-size:15px;color:var(--text2);line-height:1.7;margin-bottom:16px}
+.lesson-text h3{font-size:16px;font-weight:600;margin:20px 0 10px;color:var(--text)}
+.info-box{background:var(--primary-light);border-left:4px solid var(--primary);border-radius:0 8px 8px 0;padding:14px 16px;margin:16px 0}
+.info-box p{color:var(--text2);font-size:14px;margin:0}
+.warn-box{background:#FFFBEB;border-left:4px solid var(--warning);border-radius:0 8px 8px 0;padding:14px 16px;margin:16px 0}
+[data-theme="dark"] .warn-box{background:#1A1400}
+.warn-box p{color:var(--text2);font-size:14px;margin:0}
+.step-list{counter-reset:steps;display:flex;flex-direction:column;gap:10px;margin:16px 0}
+.step-item{display:flex;align-items:flex-start;gap:12px;padding:12px 16px;background:var(--surface2);border-radius:8px}
+.step-item::before{counter-increment:steps;content:counter(steps);width:26px;height:26px;border-radius:50%;background:var(--primary);color:#fff;font-size:12px;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px}
+.step-item p{font-size:14px;color:var(--text2);margin:0}
+.keyword-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:10px;margin:16px 0}
+.keyword-card{background:var(--surface2);border:1px solid var(--border);border-radius:8px;padding:12px}
+.keyword-card strong{font-size:13px;color:var(--primary);display:block;margin-bottom:3px}
+.keyword-card span{font-size:12px;color:var(--text3)}
+
+/* QUIZ */
+.quiz-section{margin-top:32px}
+.quiz-header{background:linear-gradient(135deg,var(--primary),var(--secondary));border-radius:var(--radius) var(--radius) 0 0;padding:20px 24px;color:#fff}
+.quiz-header h3{font-family:'Manrope',sans-serif;font-size:18px;font-weight:700}
+.quiz-header p{font-size:13px;opacity:0.8;margin-top:2px}
+.quiz-body{background:var(--surface);border:1px solid var(--border);border-top:none;border-radius:0 0 var(--radius) var(--radius);padding:24px}
+.quiz-question{margin-bottom:24px;padding-bottom:24px;border-bottom:1px solid var(--border)}
+.quiz-question:last-child{border-bottom:none;margin-bottom:0;padding-bottom:0}
+.quiz-q-num{font-size:11px;font-weight:700;color:var(--primary);text-transform:uppercase;letter-spacing:0.5px;margin-bottom:8px}
+.quiz-q-text{font-size:15px;font-weight:500;color:var(--text);margin-bottom:14px}
+.quiz-options{display:flex;flex-direction:column;gap:8px}
+.quiz-option{padding:10px 16px;border-radius:8px;border:1px solid var(--border);background:var(--surface2);cursor:pointer;font-size:14px;color:var(--text);transition:all .15s;text-align:left;display:flex;align-items:center;gap:10px}
+.quiz-option:hover{border-color:var(--primary);background:var(--primary-light)}
+.quiz-option.correct{background:#ECFDF5;border-color:var(--success);color:#065F46}
+.quiz-option.wrong{background:#FEF2F2;border-color:var(--danger);color:#991B1B}
+.quiz-option.selected{border-color:var(--primary);background:var(--primary-light)}
+[data-theme="dark"] .quiz-option.correct{background:#0A2A1A;color:#34D399}
+[data-theme="dark"] .quiz-option.wrong{background:#2A0A0A;color:#F87171}
+.quiz-btn{padding:12px 28px;border-radius:10px;background:linear-gradient(135deg,var(--primary),var(--secondary));color:#fff;border:none;font-size:14px;font-weight:600;cursor:pointer;margin-top:20px;transition:all .2s}
+.quiz-btn:hover{opacity:0.9;transform:translateY(-1px)}
+.quiz-result{background:var(--surface2);border-radius:10px;padding:20px;text-align:center;margin-top:20px}
+.quiz-score{font-family:'Manrope',sans-serif;font-size:36px;font-weight:800;color:var(--primary)}
+.quiz-score-label{font-size:14px;color:var(--text3);margin-top:4px}
+
+/* SEARCH */
+.search-hero{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:32px;text-align:center;margin-bottom:32px}
+.search-hero h2{font-family:'Manrope',sans-serif;font-size:24px;font-weight:700;margin-bottom:8px}
+.search-hero p{color:var(--text3);margin-bottom:20px}
+.search-bar{display:flex;gap:8px;max-width:600px;margin:0 auto}
+.search-input{flex:1;padding:12px 18px;border-radius:10px;border:1px solid var(--border);background:var(--surface2);color:var(--text);font-size:15px;outline:none;transition:border-color .15s}
+.search-input:focus{border-color:var(--primary)}
+.search-btn{padding:12px 20px;border-radius:10px;background:var(--primary);color:#fff;border:none;font-size:14px;font-weight:600;cursor:pointer}
+
+/* PROFILE */
+.profile-layout{display:grid;grid-template-columns:280px 1fr;gap:24px;align-items:start}
+.profile-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);overflow:hidden}
+.profile-header{background:linear-gradient(135deg,var(--primary),var(--secondary));padding:28px 24px;text-align:center;color:#fff}
+.profile-avatar-big{width:80px;height:80px;border-radius:50%;background:rgba(255,255,255,0.2);border:3px solid rgba(255,255,255,0.4);display:flex;align-items:center;justify-content:center;font-size:28px;font-weight:800;margin:0 auto 12px}
+.profile-name{font-family:'Manrope',sans-serif;font-size:18px;font-weight:700}
+.profile-role{font-size:12px;opacity:0.8;margin-top:4px}
+.profile-body{padding:20px}
+.profile-stat-row{display:flex;justify-content:space-between;padding:10px 0;border-bottom:1px solid var(--border)}
+.profile-stat-row:last-child{border-bottom:none}
+.profile-stat-key{font-size:13px;color:var(--text3)}
+.profile-stat-val{font-size:13px;font-weight:600;color:var(--text)}
+.cert-card{background:linear-gradient(135deg,#FFF8E1,#FFF3CD);border:1px solid #F59E0B;border-radius:var(--radius);padding:20px;margin-top:16px;text-align:center}
+[data-theme="dark"] .cert-card{background:linear-gradient(135deg,#1A1200,#201800);border-color:#92400E}
+.cert-icon{font-size:36px;margin-bottom:8px}
+.cert-title{font-size:14px;font-weight:700;color:#92400E}
+[data-theme="dark"] .cert-title{color:#FCD34D}
+.cert-name{font-size:16px;font-weight:700;color:var(--text);margin:4px 0}
+.cert-date{font-size:12px;color:var(--text3)}
+
+/* AI CHAT */
+.chat-container{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;display:flex;flex-direction:column;height:580px}
+.chat-top{padding:16px 20px;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:12px;background:linear-gradient(135deg,var(--primary),#0066CC)}
+.chat-ai-avatar{width:38px;height:38px;border-radius:50%;background:rgba(255,255,255,0.2);border:2px solid rgba(255,255,255,0.3);display:flex;align-items:center;justify-content:center;font-size:18px}
+.chat-ai-name{font-size:14px;font-weight:600;color:#fff}
+.chat-ai-sub{font-size:11px;color:rgba(255,255,255,0.7)}
+.online{width:8px;height:8px;background:#34D399;border-radius:50%;margin-left:auto;animation:pulse 2s infinite}
+.chat-msgs{flex:1;overflow-y:auto;padding:20px;display:flex;flex-direction:column;gap:14px}
+.msg-bot,.msg-user{max-width:82%}
+.msg-bot{align-self:flex-start}
+.msg-user{align-self:flex-end}
+.msg-bubble{padding:11px 16px;border-radius:14px;font-size:14px;line-height:1.55}
+.msg-bot .msg-bubble{background:var(--surface2);color:var(--text);border-radius:4px 14px 14px 14px}
+.msg-user .msg-bubble{background:linear-gradient(135deg,var(--primary),#0066CC);color:#fff;border-radius:14px 14px 4px 14px}
+.msg-time{font-size:10px;color:var(--text3);margin-top:3px;padding:0 2px}
+.msg-user .msg-time{text-align:right}
+.typing-indicator{display:flex;align-items:center;gap:5px;padding:11px 16px;background:var(--surface2);border-radius:4px 14px 14px 14px;width:60px}
+.typing-dot{width:7px;height:7px;border-radius:50%;background:var(--text3);animation:bounce .9s infinite}
+.typing-dot:nth-child(2){animation-delay:.2s}
+.typing-dot:nth-child(3){animation-delay:.4s}
+@keyframes bounce{0%,60%,100%{transform:translateY(0)}30%{transform:translateY(-6px)}}
+.chat-suggestions-row{padding:8px 16px;display:flex;flex-wrap:wrap;gap:6px;border-top:1px solid var(--border)}
+.chip{padding:5px 12px;border-radius:16px;border:1px solid var(--border);background:var(--surface2);color:var(--text2);font-size:12px;cursor:pointer;transition:all .15s}
+.chip:hover{border-color:var(--primary);color:var(--primary)}
+.chat-input-area{padding:14px 16px;border-top:1px solid var(--border);display:flex;gap:8px}
+.chat-inp{flex:1;padding:10px 16px;border-radius:24px;border:1px solid var(--border);background:var(--surface2);color:var(--text);font-size:14px;outline:none}
+.chat-inp:focus{border-color:var(--primary)}
+.chat-send-btn{width:40px;height:40px;border-radius:50%;background:linear-gradient(135deg,var(--primary),var(--secondary));border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.chat-send-btn svg{width:16px;height:16px;fill:#fff}
+.lec-chip{display:inline-flex;align-items:center;gap:5px;background:var(--primary-light);color:var(--primary);border-radius:6px;padding:3px 10px;font-size:12px;font-weight:600;cursor:pointer;margin-top:4px}
+[data-theme="dark"] .lec-chip{background:var(--primary-dark);color:#7DD3FC}
+
+/* PROGRESS BARS */
+.prog-section{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:24px;margin-bottom:16px}
+.prog-section h3{font-family:'Manrope',sans-serif;font-size:16px;font-weight:700;margin-bottom:16px}
+.prog-row{margin-bottom:12px}
+.prog-row-header{display:flex;justify-content:space-between;margin-bottom:5px;font-size:13px}
+.prog-row-header span:first-child{font-weight:500;color:var(--text)}
+.prog-row-header span:last-child{color:var(--text3)}
+.prog-bar{height:8px;background:var(--border);border-radius:4px;overflow:hidden}
+.prog-fill{height:100%;background:linear-gradient(90deg,var(--primary),var(--secondary));border-radius:4px;transition:width .8s cubic-bezier(.25,.8,.25,1)}
+
+/* BUTTONS */
+.btn{padding:10px 20px;border-radius:10px;font-size:14px;font-weight:600;cursor:pointer;border:none;transition:all .2s;display:inline-flex;align-items:center;gap:6px}
+.btn-primary{background:var(--primary);color:#fff}
+.btn-primary:hover{background:var(--primary-dark)}
+.btn-success{background:var(--success);color:#fff}
+.btn-outline{background:none;border:1px solid var(--border);color:var(--text)}
+.btn-outline:hover{border-color:var(--primary);color:var(--primary)}
+
+/* BACK BTN */
+.back-btn{display:inline-flex;align-items:center;gap:6px;color:var(--text2);font-size:14px;font-weight:500;cursor:pointer;background:none;border:none;margin-bottom:20px;padding:6px 0;transition:color .15s}
+.back-btn:hover{color:var(--primary)}
+.back-btn svg{width:18px;height:18px;stroke:currentColor;fill:none;stroke-width:2}
+
+/* TOAST */
+.toast{position:fixed;bottom:30px;left:50%;transform:translateX(-50%) translateY(20px);background:var(--text);color:var(--bg);padding:12px 24px;border-radius:24px;font-size:14px;font-weight:500;opacity:0;transition:all .3s;z-index:9999;pointer-events:none;white-space:nowrap}
+.toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+
+/* CERTIFICATE MODAL */
+.modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,0.6);z-index:9000;display:none;align-items:center;justify-content:center;padding:20px}
+.modal-overlay.open{display:flex}
+.modal{background:var(--surface);border-radius:var(--radius);padding:40px;max-width:500px;width:100%;text-align:center;position:relative}
+.modal-close{position:absolute;top:16px;right:16px;width:32px;height:32px;border-radius:50%;border:1px solid var(--border);background:var(--surface2);cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:18px;color:var(--text3)}
+.cert-big{width:100%;max-width:380px;background:linear-gradient(135deg,#F8FAFF,#EFF6FF);border:3px solid var(--primary);border-radius:16px;padding:32px;margin:0 auto 20px}
+[data-theme="dark"] .cert-big{background:linear-gradient(135deg,#0D1A3A,#0A1628)}
+.cert-big-logo{font-size:48px;margin-bottom:12px}
+.cert-big-title{font-family:'Manrope',sans-serif;font-size:11px;font-weight:700;color:var(--text3);text-transform:uppercase;letter-spacing:1px;margin-bottom:8px}
+.cert-big-name{font-family:'Manrope',sans-serif;font-size:22px;font-weight:800;color:var(--text);margin-bottom:4px}
+.cert-big-course{font-size:14px;color:var(--primary);font-weight:600;margin-bottom:16px}
+.cert-big-divider{height:1px;background:var(--border);margin:12px 0}
+.cert-big-meta{font-size:12px;color:var(--text3)}
+
+/* RESPONSIVE */
+@media(max-width:900px){
+  .lesson-layout{grid-template-columns:1fr}
+  .lesson-sidebar{position:static}
+  .profile-layout{grid-template-columns:1fr}
+  .stats-row{grid-template-columns:repeat(2,1fr)}
+  .hero-stats{position:static;margin-top:24px;justify-content:flex-start}
+  .hero h1{font-size:28px}
+  .hero{padding:32px 24px}
+}
+@media(max-width:640px){
+  .nav-links{display:none}
+  .hamburger{display:flex}
+  .page{padding:20px 16px 100px}
+  .stats-row{grid-template-columns:repeat(2,1fr)}
+  .courses-grid{grid-template-columns:1fr}
+  .hero h1{font-size:24px}
+  .hero{padding:24px 20px}
+  .hero-stats{gap:16px}
+  .hero-stat-num{font-size:22px}
+  .lesson-content{padding:20px}
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav class="nav">
+  <div class="nav-inner">
+    <a class="logo" href="#" onclick="showPage('home')">
+      <div class="logo-mark">
+        <svg viewBox="0 0 24 24"><path d="M9 3H5a2 2 0 0 0-2 2v4m6-6h10a2 2 0 0 1 2 2v4M9 3v18m0 0h10a2 2 0 0 0 2-2V9M9 21H5a2 2 0 0 1-2-2V9m0 0h18"/></svg>
+      </div>
+      <div>
+        <div class="logo-name">TLF<span> Academy</span></div>
+        <div class="logo-sub" id="navSub">Фармацевтическое обучение</div>
+      </div>
+    </a>
+    <div class="nav-spacer"></div>
+    <div class="nav-links">
+      <button class="nav-link active" onclick="showPage('home')" data-i18n="nav_home">Главная</button>
+      <button class="nav-link" onclick="showPage('courses')" data-i18n="nav_courses">Курсы</button>
+      <button class="nav-link" onclick="showPage('search')" data-i18n="nav_search">Поиск</button>
+      <button class="nav-link" onclick="showPage('assistant')" data-i18n="nav_ai">ИИ-помощник</button>
+      <button class="nav-link" onclick="showPage('profile')" data-i18n="nav_profile">Мой кабинет</button>
+    </div>
+    <div class="nav-actions">
+      <button class="lang-btn active" onclick="setLang('ru')" id="btnRu">RU</button>
+      <button class="lang-btn" onclick="setLang('uz')" id="btnUz">UZ</button>
+      <button class="theme-toggle" onclick="toggleTheme()" id="themeBtn">🌙</button>
+      <div class="user-btn" onclick="showPage('profile')">
+        <div class="user-avatar" id="userAvatarNav">ОА</div>
+        <span class="user-name" id="userNameNav">Оператор</span>
+      </div>
+      <button class="hamburger" onclick="toggleMobileNav()">
+        <svg viewBox="0 0 24 24"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+      </button>
+    </div>
+  </div>
+  <div class="mobile-nav" id="mobileNav">
+    <button class="nav-link" onclick="showPage('home');toggleMobileNav()" data-i18n="nav_home">🏠 Главная</button>
+    <button class="nav-link" onclick="showPage('courses');toggleMobileNav()" data-i18n="nav_courses">📚 Курсы</button>
+    <button class="nav-link" onclick="showPage('search');toggleMobileNav()" data-i18n="nav_search">🔍 Поиск</button>
+    <button class="nav-link" onclick="showPage('assistant');toggleMobileNav()" data-i18n="nav_ai">🤖 ИИ-помощник</button>
+    <button class="nav-link" onclick="showPage('profile');toggleMobileNav()" data-i18n="nav_profile">👤 Мой кабинет</button>
+  </div>
+</nav>
+
+<!-- HOME PAGE -->
+<div class="page active" id="page-home">
+  <div class="hero">
+    <div class="hero-badge">🎓 <span data-i18n="hero_badge">Профессиональное обучение ТЛФ</span></div>
+    <h1 data-i18n="hero_title">Обучение операторов<br><span>цеха грануляции</span></h1>
+    <p data-i18n="hero_desc">Интерактивные курсы, аудиолекции и тесты для сотрудников фармацевтического производства. Учитесь без скуки — слушайте, практикуйте, сдавайте экзамены.</p>
+    <div class="hero-btns">
+      <button class="btn-hero btn-hero-primary" onclick="showPage('courses')">
+        <span data-i18n="btn_start">▶ Начать обучение</span>
+      </button>
+      <button class="btn-hero btn-hero-secondary" onclick="showPage('profile')">
+        <span data-i18n="btn_cabinet">👤 Мой кабинет</span>
+      </button>
+    </div>
+    <div class="hero-stats">
+      <div class="hero-stat"><span class="hero-stat-num">18</span><span class="hero-stat-label" data-i18n="stat_courses">курсов</span></div>
+      <div class="hero-stat"><span class="hero-stat-num">120+</span><span class="hero-stat-label" data-i18n="stat_lessons">уроков</span></div>
+      <div class="hero-stat"><span class="hero-stat-num">GMP</span><span class="hero-stat-label" data-i18n="stat_standard">стандарт</span></div>
+    </div>
+  </div>
+
+  <div class="stats-row">
+    <div class="stat-card" onclick="showPage('courses')">
+      <div class="stat-icon blue">📚</div>
+      <div><div class="stat-num" id="statCompleted">0</div><div class="stat-label" data-i18n="stat_done">Пройдено курсов</div></div>
+    </div>
+    <div class="stat-card" onclick="showPage('profile')">
+      <div class="stat-icon teal">🏆</div>
+      <div><div class="stat-num" id="statCerts">0</div><div class="stat-label" data-i18n="stat_certs">Сертификатов</div></div>
+    </div>
+    <div class="stat-card" onclick="showPage('courses')">
+      <div class="stat-icon orange">⏱</div>
+      <div><div class="stat-num" id="statTime">0</div><div class="stat-label" data-i18n="stat_time">Минут обучения</div></div>
+    </div>
+    <div class="stat-card" onclick="showPage('profile')">
+      <div class="stat-icon green">📊</div>
+      <div><div class="stat-num" id="statScore">—</div><div class="stat-label" data-i18n="stat_avg">Средний балл</div></div>
+    </div>
+  </div>
+
+  <div class="section-header">
+    <div><div class="section-title" data-i18n="popular_courses">Популярные курсы</div><div class="section-sub" data-i18n="popular_sub">Начните с основ</div></div>
+    <button class="view-all" onclick="showPage('courses')" data-i18n="view_all">Все курсы →</button>
+  </div>
+  <div class="courses-grid" id="homeCourseGrid"></div>
+</div>
+
+<!-- COURSES PAGE -->
+<div class="page" id="page-courses">
+  <div class="section-header" style="margin-bottom:24px">
+    <div><div class="section-title" data-i18n="all_courses">Все курсы</div><div class="section-sub">18 курсов · GMP стандарт</div></div>
+  </div>
+  <div class="courses-grid" id="allCourseGrid"></div>
+</div>
+
+<!-- LESSON PAGE -->
+<div class="page" id="page-lesson">
+  <button class="back-btn" onclick="goBack()">
+    <svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"/></svg>
+    <span data-i18n="back">Назад</span>
+  </button>
+  <div class="lesson-layout">
+    <div class="lesson-sidebar" id="lessonSidebar"></div>
+    <div class="lesson-content" id="lessonContent"></div>
+  </div>
+</div>
+
+<!-- SEARCH PAGE -->
+<div class="page" id="page-search">
+  <div class="search-hero">
+    <h2 data-i18n="search_title">Поиск по материалам</h2>
+    <p data-i18n="search_sub">Найдите любую тему, процесс или оборудование</p>
+    <div class="search-bar">
+      <input class="search-input" type="text" id="searchInput" placeholder="Например: гранулятор, GMP, таблетирование..." oninput="doSearch(this.value)">
+      <button class="search-btn" data-i18n="search_btn">Найти</button>
+    </div>
+  </div>
+  <div id="searchResults"></div>
+</div>
+
+<!-- ASSISTANT PAGE -->
+<div class="page" id="page-assistant">
+  <div class="section-header" style="margin-bottom:20px">
+    <div><div class="section-title" data-i18n="ai_title">ИИ-помощник</div><div class="section-sub" data-i18n="ai_sub">Спросите всё о фармацевтическом производстве</div></div>
+  </div>
+  <div class="chat-container">
+    <div class="chat-top">
+      <div class="chat-ai-avatar">🤖</div>
+      <div>
+        <div class="chat-ai-name">PharmaBot</div>
+        <div class="chat-ai-sub" data-i18n="ai_expert">Эксперт по ТЛФ и GMP</div>
+      </div>
+      <div class="online"></div>
+    </div>
+    <div class="chat-msgs" id="chatMsgs">
+      <div class="msg-bot"><div class="msg-bubble" data-i18n="ai_greeting">Салом! Мен PharmaBot — ТЛФ цехи ва GMP бўйича AI-ёрдамчиман.<br><br>Привет! Я PharmaBot — ваш помощник по цеху ТЛФ и требованиям GMP. Задайте вопрос о любом процессе, оборудовании или стандарте.</div><div class="msg-time">Сейчас</div></div>
+    </div>
+    <div class="chat-suggestions-row">
+      <div class="chip" onclick="sendChip('Что такое GMP?')">Что такое GMP?</div>
+      <div class="chip" onclick="sendChip('Влажная грануляция — этапы')">Влажная грануляция</div>
+      <div class="chip" onclick="sendChip('Как оформить девиацию?')">Девиация</div>
+      <div class="chip" onclick="sendChip('Очистка оборудования')">Очистка</div>
+      <div class="chip" onclick="sendChip('GMP nima?')">GMP nima? 🇺🇿</div>
+    </div>
+    <div class="chat-input-area">
+      <input class="chat-inp" type="text" id="chatInput" placeholder="Напишите вопрос..." onkeydown="if(event.key==='Enter')sendChat()">
+      <button class="chat-send-btn" onclick="sendChat()"><svg viewBox="0 0 24 24"><path d="M22 2L11 13M22 2l-7 20-4-9-9-4 20-7z"/></svg></button>
+    </div>
+  </div>
+</div>
+
+<!-- PROFILE PAGE -->
+<div class="page" id="page-profile">
+  <div class="section-header" style="margin-bottom:24px">
+    <div class="section-title" data-i18n="profile_title">Личный кабинет</div>
+  </div>
+  <div class="profile-layout">
+    <div>
+      <div class="profile-card">
+        <div class="profile-header">
+          <div class="profile-avatar-big" id="profileAvatarBig">ОА</div>
+          <div class="profile-name" id="profileName">Оператор А.</div>
+          <div class="profile-role" data-i18n="profile_role">Оператор цеха ТЛФ</div>
+        </div>
+        <div class="profile-body">
+          <div class="profile-stat-row"><span class="profile-stat-key" data-i18n="p_dept">Цех</span><span class="profile-stat-val">ТЛФ — Грануляция</span></div>
+          <div class="profile-stat-row"><span class="profile-stat-key" data-i18n="p_reg">Дата регистрации</span><span class="profile-stat-val" id="profileRegDate">—</span></div>
+          <div class="profile-stat-row"><span class="profile-stat-key" data-i18n="p_done">Пройдено</span><span class="profile-stat-val" id="profileDone">0 из 18</span></div>
+          <div class="profile-stat-row"><span class="profile-stat-key" data-i18n="p_score">Средний балл</span><span class="profile-stat-val" id="profileScore">—</span></div>
+          <div class="profile-stat-row"><span class="profile-stat-key" data-i18n="p_certs">Сертификатов</span><span class="profile-stat-val" id="profileCerts">0</span></div>
+        </div>
+      </div>
+      <div id="certsBlock"></div>
+    </div>
+    <div>
+      <div class="prog-section">
+        <h3 data-i18n="progress_title">Прогресс обучения</h3>
+        <div id="progressBars"></div>
+      </div>
+      <div class="prog-section">
+        <h3 data-i18n="results_title">Результаты тестов</h3>
+        <div id="testResults"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- CERT MODAL -->
+<div class="modal-overlay" id="certModal">
+  <div class="modal">
+    <button class="modal-close" onclick="closeCertModal()">×</button>
+    <div class="cert-big">
+      <div class="cert-big-logo">🏆</div>
+      <div class="cert-big-title" data-i18n="cert_title">Сертификат о прохождении</div>
+      <div class="cert-big-name" id="certModalName">—</div>
+      <div class="cert-big-course" id="certModalCourse">—</div>
+      <div class="cert-big-divider"></div>
+      <div class="cert-big-meta">TLF Academy · <span id="certModalDate">—</span></div>
+    </div>
+    <p style="font-size:13px;color:var(--text3);margin-bottom:16px" data-i18n="cert_congrats">Поздравляем! Вы успешно прошли курс.</p>
+    <button class="btn btn-primary" onclick="closeCertModal()">✓ Закрыть</button>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+// ========== I18N ==========
+const i18n = {
+  ru: {
+    nav_home:"Главная",nav_courses:"Курсы",nav_search:"Поиск",nav_ai:"ИИ-помощник",nav_profile:"Мой кабинет",
+    hero_badge:"Профессиональное обучение ТЛФ",hero_title:"Обучение операторов<br><span>цеха грануляции</span>",
+    hero_desc:"Интерактивные курсы, аудиолекции и тесты для сотрудников фармацевтического производства.",
+    btn_start:"▶ Начать обучение",btn_cabinet:"👤 Мой кабинет",
+    stat_courses:"курсов",stat_lessons:"уроков",stat_standard:"стандарт",
+    stat_done:"Пройдено курсов",stat_certs:"Сертификатов",stat_time:"Минут обучения",stat_avg:"Средний балл",
+    popular_courses:"Популярные курсы",popular_sub:"Начните с основ",view_all:"Все курсы →",
+    all_courses:"Все курсы",back:"Назад",
+    search_title:"Поиск по материалам",search_sub:"Найдите любую тему, процесс или оборудование",search_btn:"Найти",
+    ai_title:"ИИ-помощник",ai_sub:"Спросите всё о фармацевтическом производстве",ai_expert:"Эксперт по ТЛФ и GMP",
+    ai_greeting:"Привет! Я PharmaBot — ваш помощник по цеху ТЛФ и требованиям GMP. Задайте вопрос о любом процессе, оборудовании или стандарте.",
+    profile_title:"Личный кабинет",profile_role:"Оператор цеха ТЛФ",
+    p_dept:"Цех",p_reg:"Дата регистрации",p_done:"Пройдено",p_score:"Средний балл",p_certs:"Сертификатов",
+    progress_title:"Прогресс обучения",results_title:"Результаты тестов",
+    cert_title:"Сертификат о прохождении",cert_congrats:"Поздравляем! Вы успешно прошли курс.",
+    navSub:"Фармацевтическое обучение",
+    quiz_title:"Контрольный тест",quiz_sub:"10 вопросов — проверьте знания",
+    submit_quiz:"Проверить ответы",next_lesson:"Следующий урок →",
+    no_audio:"Аудиофайл не загружен. Добавьте MP3 через панель администратора.",
+    lesson_label:"Урок",
+    score_label:"Ваш результат",
+  },
+  uz: {
+    nav_home:"Bosh sahifa",nav_courses:"Kurslar",nav_search:"Qidiruv",nav_ai:"AI-yordamchi",nav_profile:"Kabinetim",
+    hero_badge:"TLF professonal ta'lim",hero_title:"Granulatsiya tsеxi<br><span>operatorlarini o'qitish</span>",
+    hero_desc:"Farmatsevtika ishlab chiqarish xodimlari uchun interaktiv kurslar, audio ma'ruzalar va testlar.",
+    btn_start:"▶ O'qishni boshlash",btn_cabinet:"👤 Kabinetim",
+    stat_courses:"kurs",stat_lessons:"dars",stat_standard:"standart",
+    stat_done:"O'tilgan kurslar",stat_certs:"Sertifikatlar",stat_time:"O'qish daqiqalari",stat_avg:"O'rtacha ball",
+    popular_courses:"Mashhur kurslar",popular_sub:"Asoslardan boshlang",view_all:"Barcha kurslar →",
+    all_courses:"Barcha kurslar",back:"Orqaga",
+    search_title:"Materiallar qidirish",search_sub:"Har qanday mavzu, jarayon yoki uskunani toping",search_btn:"Qidirish",
+    ai_title:"AI-yordamchi",ai_sub:"Farmatsevtika ishlab chiqarish haqida savol bering",ai_expert:"TLF va GMP bo'yicha mutaxassis",
+    ai_greeting:"Salom! Men PharmaBot — TLF tsеxi va GMP talablari bo'yicha AI-yordamchiman. Har qanday jarayon, uskuna yoki standart haqida savol bering.",
+    profile_title:"Shaxsiy kabinet",profile_role:"TLF tsеxi operatori",
+    p_dept:"Tsex",p_reg:"Ro'yxatdan o'tgan sana",p_done:"O'tilgan",p_score:"O'rtacha ball",p_certs:"Sertifikatlar",
+    progress_title:"O'qish jarayoni",results_title:"Test natijalari",
+    cert_title:"O'tish sertifikati",cert_congrats:"Tabriklaymiz! Siz kursni muvaffaqiyatli yakunladingiz.",
+    navSub:"Farmatsevtik ta'lim",
+    quiz_title:"Nazorat testi",quiz_sub:"10 ta savol — bilimingizni tekshiring",
+    submit_quiz:"Javoblarni tekshirish",next_lesson:"Keyingi dars →",
+    no_audio:"Audio fayl yuklanmagan. Admin paneli orqali MP3 qo'shing.",
+    lesson_label:"Dars",
+    score_label:"Sizning natijangiz",
+  }
+};
+let lang = localStorage.getItem('lang')||'ru';
+
+function setLang(l) {
+  lang = l;
+  localStorage.setItem('lang', l);
+  document.getElementById('btnRu').classList.toggle('active', l==='ru');
+  document.getElementById('btnUz').classList.toggle('active', l==='uz');
+  document.querySelectorAll('[data-i18n]').forEach(el => {
+    const key = el.getAttribute('data-i18n');
+    if(i18n[l][key]) el.innerHTML = i18n[l][key];
+  });
+  document.getElementById('navSub').textContent = i18n[l].navSub;
+  renderHomeCourses();
+  if(document.getElementById('page-courses').classList.contains('active')) renderAllCourses();
+}
+
+// ========== DATA ==========
+const COURSES = [
+  {id:1,emoji:"📋",title:{ru:"Введение в GMP",uz:"GMPga kirish"},cat:{ru:"Основы",uz:"Asoslar"},color:"#E8F0FE",desc:{ru:"Принципы надлежащей производственной практики. Документация, валидация, управление качеством.",uz:"Yaxshi ishlab chiqarish amaliyoti tamoyillari. Hujjatlashtirish, validatsiya, sifat boshqaruvi."},duration:"45 мин",lessons:5,badge:"hot",
+    lessonList:[
+      {title:{ru:"Что такое GMP?",uz:"GMP nima?"},content:{ru:`<h2>Что такое GMP?</h2><p>GMP (Good Manufacturing Practice) — Надлежащая производственная практика — это система требований к организации производства и контроля качества лекарственных средств.</p><div class="info-box"><p>💡 GMP гарантирует, что лекарственные средства производятся и контролируются в соответствии со стандартами качества, соответствующими их предполагаемому использованию.</p></div><h3>Основные принципы GMP</h3><div class="step-list"><div class="step-item"><p>Чётко прописанные процедуры (SOP) для каждой операции</p></div><div class="step-item"><p>Квалифицированный и обученный персонал</p></div><div class="step-item"><p>Подходящие помещения и оборудование</p></div><div class="step-item"><p>Надлежащие материалы и компоненты</p></div><div class="step-item"><p>Полная и точная документация</p></div></div><h3>Почему GMP важен для оператора?</h3><p>Каждое действие оператора влияет на качество, безопасность и эффективность лекарственного препарата. Отклонение от инструкций может привести к браку или, что хуже, к вреду для пациента.</p><div class="warn-box"><p>⚠️ Отступление от SOP без разрешения является нарушением GMP и подлежит документированию как девиация.</p></div>`,uz:`<h2>GMP nima?</h2><p>GMP (Good Manufacturing Practice) — Yaxshi ishlab chiqarish amaliyoti — dori vositalarini ishlab chiqarish va sifat nazoratini tashkil etish talablari tizimi.</p><div class="info-box"><p>💡 GMP dori vositalarining sifat standartlariga muvofiq ishlab chiqarilishi va nazorat qilinishini kafolatlaydi.</p></div><h3>GMP asosiy tamoyillari</h3><div class="step-list"><div class="step-item"><p>Har bir operatsiya uchun aniq yozilgan protseduralar (SOP)</p></div><div class="step-item"><p>Malakali va o'qitilgan xodimlar</p></div><div class="step-item"><p>Mos xonalar va uskunalar</p></div><div class="step-item"><p>Tegishli materiallar va komponentlar</p></div><div class="step-item"><p>To'liq va aniq hujjatlashtirish</p></div></div>`},quiz:[{q:{ru:"Что означает аббревиатура GMP?",uz:"GMP qisqartmasi nimani anglatadi?"},opts:{ru:["Good Manufacturing Practice","General Medicine Protocol","Global Management Plan","Grade Medical Product"],uz:["Yaxshi ishlab chiqarish amaliyoti","Umumiy tibbiyot protokoli","Global boshqaruv rejasi","Darajali tibbiy mahsulot"]},ans:0},{q:{ru:"Что является основным документом, описывающим порядок выполнения операции?",uz:"Operatsiyani bajarish tartibini tavsiflovchi asosiy hujjat nima?"},opts:{ru:["Протокол серии","SOP (стандартная операционная процедура)","Накладная","Этикетка"],uz:["Seriya bayonnomasi","SOP (standart operatsion protsedura)","Yuk xati","Yorliq"]},ans:1},{q:{ru:"Что нужно сделать при отклонении от SOP?",uz:"SOPdan og'ish bo'lganda nima qilish kerak?"},opts:{ru:["Ничего не делать","Оформить девиацию и сообщить мастеру","Самостоятельно исправить","Скрыть от контроля"],uz:["Hech narsa qilmaslik","Deviatsiyani rasmiylashtirish va ustaga xabar berish","O'zi tuzatish","Nazoratdan yashirish"]},ans:1}]},
+      {title:{ru:"Документация в GMP",uz:"GMPda hujjatlashtirish"},content:{ru:`<h2>Документация в GMP</h2><p>Принцип GMP: «Если не записано — значит не сделано». Каждое действие в производстве должно быть задокументировано.</p><h3>Основные виды документов</h3><div class="keyword-grid"><div class="keyword-card"><strong>Протокол серии</strong><span>Главный документ — фиксирует все операции каждой серии</span></div><div class="keyword-card"><strong>SOP</strong><span>Пошаговая инструкция для каждой операции</span></div><div class="keyword-card"><strong>Журнал оборудования</strong><span>История использования и обслуживания</span></div><div class="keyword-card"><strong>Журнал очистки</strong><span>Подтверждение чистоты оборудования</span></div><div class="keyword-card"><strong>Форма девиации</strong><span>Оформляется при любом отклонении</span></div><div class="keyword-card"><strong>CAPA-план</strong><span>Корректирующие и предупреждающие действия</span></div></div><h3>Правила заполнения</h3><div class="step-list"><div class="step-item"><p>Заполняйте в реальном времени — не по памяти</p></div><div class="step-item"><p>Ошибки исправляйте: зачеркните, поставьте подпись и дату</p></div><div class="step-item"><p>Не используйте замазку (корректор)</p></div><div class="step-item"><p>Пишите чётко и разборчиво</p></div></div>`,uz:`<h2>GMPda hujjatlashtirish</h2><p>GMP tamoyili: «Yozilmagan — qilinmagan». Ishlab chiqarishdagi har bir harakat hujjatlashtirilishi kerak.</p><h3>Asosiy hujjat turlari</h3><div class="keyword-grid"><div class="keyword-card"><strong>Seriya bayonnomasi</strong><span>Asosiy hujjat — har bir seriyaning barcha operatsiyalarini qayd etadi</span></div><div class="keyword-card"><strong>SOP</strong><span>Har bir operatsiya uchun bosqichma-bosqich ko'rsatma</span></div><div class="keyword-card"><strong>Uskuna jurnali</strong><span>Foydalanish va texnik xizmat ko'rsatish tarixi</span></div><div class="keyword-card"><strong>Tozalash jurnali</strong><span>Uskunaning tozaligini tasdiqlash</span></div></div>`},quiz:[{q:{ru:"Как правильно исправить ошибку в документе GMP?",uz:"GMP hujjatidagi xatoni qanday to'g'irlash kerak?"},opts:{ru:["Замазать корректором","Вырвать лист","Зачеркнуть, поставить подпись и дату","Переписать заново"],uz:["Korrektorla o'chirish","Varaqni yirtib olish","Chizib o'tish, imzo va sana qo'yish","Qayta yozish"]},ans:2},{q:{ru:"Что означает принцип «Если не записано — значит не сделано»?",uz:"«Yozilmagan — qilinmagan» tamoyili nima degan ma'noni anglatadi?"},opts:{ru:["Можно не выполнять незаписанные операции","Каждое действие должно быть документально подтверждено","Устные инструкции достаточны","Запись важнее действия"],uz:["Yozilmagan operatsiyalarni bajarmaslik mumkin","Har bir harakat hujjatli tasdiqlanishi kerak","Og'zaki ko'rsatmalar kifoya","Yozuv harakatdan muhimroq"]},ans:1}]},
+      {title:{ru:"Персонал и гигиена",uz:"Xodimlar va gigiena"},content:{ru:`<h2>Требования GMP к персоналу</h2><p>Персонал — один из ключевых факторов, влияющих на качество продукции. GMP устанавливает чёткие требования к обучению, гигиене и поведению в производственных зонах.</p><h3>Требования к гигиене</h3><div class="step-list"><div class="step-item"><p>Чистая производственная одежда перед каждой сменой</p></div><div class="step-item"><p>Мытьё рук до и после работы, после туалета</p></div><div class="step-item"><p>Запрет украшений, часов, маникюра в производственной зоне</p></div><div class="step-item"><p>При болезни (простуда, кожные заболевания) — сообщить руководству</p></div></div><div class="warn-box"><p>⚠️ Еда, питьё и курение в производственных зонах категорически запрещены.</p></div>`,uz:`<h2>GMPning xodimlariga talablari</h2><p>Xodimlar mahsulot sifatiga ta'sir qiluvchi asosiy omillardan biri. GMP o'qitish, gigiena va ishlab chiqarish zonalarida xatti-harakat bo'yicha aniq talablarni belgilaydi.</p>`},quiz:[{q:{ru:"Что обязательно нужно сделать при входе в производственную зону?",uz:"Ishlab chiqarish zonasiga kirishdan oldin nima qilish shart?"},opts:{ru:["Надеть СИЗ и помыть руки","Выпить кофе","Проверить телефон","Поговорить с коллегами"],uz:["OHV kiyish va qo'llarni yuvish","Qahva ichish","Telefonni tekshirish","Hamkasblar bilan gaplashish"]},ans:0}]}
+    ]
+  },
+  {id:2,emoji:"⚗️",title:{ru:"Влажная грануляция",uz:"Nam granulatsiya"},cat:{ru:"Технология",uz:"Texnologiya"},color:"#E0F7F6",desc:{ru:"Технология влажного гранулирования: связующие вещества, режимы работы гранулятора, сушка.",uz:"Nam granulyatsiya texnologiyasi: bog'lovchi moddalar, granulyator ish rejimlari, quritish."},duration:"60 мин",lessons:6,badge:"hot",
+    lessonList:[
+      {title:{ru:"Принцип влажной грануляции",uz:"Nam granulatsiya tamoyili"},content:{ru:`<h2>Влажная грануляция</h2><p>Влажная грануляция — наиболее распространённый метод получения гранулята для последующего таблетирования. Суть метода: к порошковой смеси добавляют гранулирующую жидкость (связующее), что приводит к образованию агломератов — гранул.</p><div class="info-box"><p>💡 Грануляция улучшает сыпучесть порошка, его прессуемость, предотвращает расслоение компонентов и снижает пыление.</p></div><h3>Этапы влажной грануляции</h3><div class="step-list"><div class="step-item"><p><strong>Смешивание:</strong> порошковые компоненты смешивают в высокосдвиговом грануляторе</p></div><div class="step-item"><p><strong>Грануляция:</strong> добавляют связующий раствор при работающей мешалке</p></div><div class="step-item"><p><strong>Влажное просеивание:</strong> гранулят пропускают через сито</p></div><div class="step-item"><p><strong>Сушка:</strong> гранулят сушат в псевдоожиженном слое или на лотках</p></div><div class="step-item"><p><strong>Сухое просеивание:</strong> высушенный гранулят просеивают до нужного размера</p></div><div class="step-item"><p><strong>Смешивание с лубрикантами:</strong> добавляют скользящие и смазывающие вещества</p></div></div><h3>Связующие вещества</h3><div class="keyword-grid"><div class="keyword-card"><strong>ПВП (Повидон)</strong><span>Наиболее часто используемый связующий агент</span></div><div class="keyword-card"><strong>ГПМЦ</strong><span>Гидроксипропилметилцеллюлоза — для термочувствительных субстанций</span></div><div class="keyword-card"><strong>МЦ</strong><span>Метилцеллюлоза — водорастворимый связующий агент</span></div><div class="keyword-card"><strong>Крахмальный клейстер</strong><span>Традиционное связующее из крахмала</span></div></div>`,uz:`<h2>Nam granulatsiya</h2><p>Nam granulatsiya — keyinchalik tabletirovka qilish uchun granulat olishning eng keng tarqalgan usuli. Usulning mohiyati: kukun aralashmasiga granulyatsiyalovchi suyuqlik (bog'lovchi) qo'shiladi, bu esa agglomeratlar — granulyalarning hosil bo'lishiga olib keladi.</p>`},quiz:[{q:{ru:"На каком этапе к порошковой смеси добавляют связующий раствор?",uz:"Kukun aralashmasiga bog'lovchi eritma qaysi bosqichda qo'shiladi?"},opts:{ru:["На этапе сушки","На этапе грануляции","На этапе просеивания","На этапе таблетирования"],uz:["Quritish bosqichida","Granulyatsiya bosqichida","Elash bosqichida","Tabletirovka bosqichida"]},ans:1},{q:{ru:"Какой связующий агент наиболее часто используется в влажной грануляции?",uz:"Nam granulatsiyada qaysi bog'lovchi agent ko'p qo'llaniladi?"},opts:{ru:["Магний стеарат","ПВП (Повидон)","Тальк","Аэросил"],uz:["Magniy stearat","PVP (Povidon)","Talk","Aerosil"]},ans:1},{q:{ru:"Для чего необходима стадия сушки при влажной грануляции?",uz:"Nam granulatsiyada quritish bosqichi nima uchun zarur?"},opts:{ru:["Для увеличения размера гранул","Для удаления остаточной влаги и придания прочности","Для добавления связующего","Для просеивания"],uz:["Granulyalar hajmini oshirish uchun","Qoldiq namlikni olib tashlash va mustahkamlik berish uchun","Bog'lovchi qo'shish uchun","Elash uchun"]},ans:1}]}
+    ]
+  },
+  {id:3,emoji:"💨",title:{ru:"Сухая грануляция",uz:"Quruq granulatsiya"},cat:{ru:"Технология",uz:"Texnologiya"},color:"#FFF3ED",desc:{ru:"Роллер-компактор, брикетирование. Применение для термо- и влагочувствительных субстанций.",uz:"Roller-kompaktör, briketirovka. Issiqlik va namga sezgir substansiyalar uchun qo'llanish."},duration:"50 мин",lessons:4,badge:"new",
+    lessonList:[{title:{ru:"Принцип сухой грануляции",uz:"Quruq granulatsiya tamoyili"},content:{ru:`<h2>Сухая грануляция</h2><p>Сухая грануляция — метод получения гранулята без добавления жидкости. Применяется для веществ, чувствительных к влаге и высокой температуре.</p><h3>Методы сухой грануляции</h3><div class="step-list"><div class="step-item"><p><strong>Роллер-компактор:</strong> порошок уплотняется между двумя вращающимися валками, образуются брикеты, которые затем дробятся до нужного размера</p></div><div class="step-item"><p><strong>Прямое прессование:</strong> порошок прессуется в крупные таблетки (слаги), которые потом измельчаются</p></div></div><div class="info-box"><p>💡 Преимущество сухой грануляции — нет стадии сушки, что экономит время и энергию, и позволяет работать с нестабильными к влаге субстанциями.</p></div>`,uz:`<h2>Quruq granulatsiya</h2><p>Quruq granulatsiya — suyuqlik qo'shmasdan granulat olish usuli. Nam va yuqori haroratga sezgir moddalar uchun qo'llaniladi.</p>`},quiz:[{q:{ru:"В чём главное преимущество сухой грануляции?",uz:"Quruq granulatsiyaning asosiy afzalligi nima?"},opts:{ru:["Лучший внешний вид гранул","Отсутствие стадии сушки","Больший выход продукта","Меньше оборудования"],uz:["Granulyalarning ko'rinishi yaxshiroq","Quritish bosqichi yo'q","Mahsulot chiqimi ko'p","Kam uskunalar"]},ans:1}]}]
+  },
+  {id:4,emoji:"🔥",title:{ru:"Сушка гранулята",uz:"Granulat quritish"},cat:{ru:"Технология",uz:"Texnologiya"},color:"#FFF3ED",desc:{ru:"Параметры сушки, методы контроля влажности, псевдоожиженный слой.",uz:"Quritish parametrlari, namlikni nazorat qilish usullari, suyuqlashtirilgan qatlam."},duration:"40 мин",lessons:3,badge:"new",
+    lessonList:[{title:{ru:"Методы сушки",uz:"Quritish usullari"},content:{ru:`<h2>Сушка гранулята</h2><p>После влажной грануляции гранулят содержит избыточную влагу, которую необходимо удалить для обеспечения стабильности продукта.</p><h3>Методы сушки</h3><div class="keyword-grid"><div class="keyword-card"><strong>Псевдоожиженный слой</strong><span>Гранулят висит во встречном потоке горячего воздуха. Быстро и равномерно.</span></div><div class="keyword-card"><strong>Лотковая сушилка</strong><span>Гранулят на лотках. Медленнее, но проще в обслуживании.</span></div><div class="keyword-card"><strong>Распылительная сушка</strong><span>Для термочувствительных веществ.</span></div></div><h3>Критические параметры сушки</h3><div class="step-list"><div class="step-item"><p>Температура входящего воздуха (обычно 40–80°C)</p></div><div class="step-item"><p>Конечная влажность гранулята (обычно 1–3%)</p></div><div class="step-item"><p>Время сушки</p></div></div>`,uz:`<h2>Granulat quritish</h2><p>Nam granulatsiyadan keyin granulat mahsulot barqarorligini ta'minlash uchun olib tashlanishi kerak bo'lgan ortiqcha namni o'z ichiga oladi.</p>`},quiz:[{q:{ru:"Какой метод сушки наиболее быстрый и равномерный?",uz:"Qaysi quritish usuli eng tez va bir tekis?"},opts:{ru:["Лотковая сушилка","Псевдоожиженный слой","Сушка на воздухе","Вакуумная сушка"],uz:["Laqcha quriqlagich","Suyuqlashtirilgan qatlam","Havoda quritish","Vakuumli quritish"]},ans:1}]}]
+  },
+  {id:5,emoji:"⚖️",title:{ru:"Взвешивание сырья",uz:"Xom ashyo tortish"},cat:{ru:"Подготовка",uz:"Tayyorgarlik"},color:"#ECFDF5",desc:{ru:"Правила взвешивания, работа с весами, документирование результатов взвешивания.",uz:"Tortish qoidalari, tarozi bilan ishlash, tortish natijalarini hujjatlashtirish."},duration:"35 мин",lessons:3,badge:"new",
+    lessonList:[{title:{ru:"Правила взвешивания",uz:"Tortish qoidalari"},content:{ru:`<h2>Взвешивание сырья</h2><p>Взвешивание — критическая операция, которая напрямую влияет на состав и качество готового продукта. Ошибка при взвешивании может привести к браку всей серии.</p><div class="warn-box"><p>⚠️ Принцип «четырёх глаз»: каждое взвешивание проверяет второй оператор или мастер.</p></div><h3>Порядок взвешивания</h3><div class="step-list"><div class="step-item"><p>Проверить калибровку весов (действующий сертификат)</p></div><div class="step-item"><p>Тарировать весы (обнулить с тарой)</p></div><div class="step-item"><p>Взвесить компонент согласно рецептуре</p></div><div class="step-item"><p>Записать фактическую массу в протокол серии</p></div><div class="step-item"><p>Второй оператор проверяет и подписывает</p></div></div>`,uz:`<h2>Xom ashyo tortish</h2><p>Tortish — tayyor mahsulotning tarkibi va sifatiga bevosita ta'sir qiladigan muhim operatsiya. Tortishdagi xato butun seriyaning buzilishiga olib kelishi mumkin.</p>`},quiz:[{q:{ru:"Что означает принцип «четырёх глаз» при взвешивании?",uz:"Tortishda «to'rt ko'z» tamoyili nimani anglatadi?"},opts:{ru:["Нужны специальные очки","Взвешивание проверяет второй оператор","Взвешивать 4 раза","Использовать 4 весов"],uz:["Maxsus ko'zoynak kerak","Tortishni ikkinchi operator tekshiradi","4 marta tortish","4 ta tarozidan foydalanish"]},ans:1}]}]
+  },
+  {id:6,emoji:"🔬",title:{ru:"Контроль качества",uz:"Sifat nazorati"},cat:{ru:"Контроль",uz:"Nazorat"},color:"#EEF2FF",desc:{ru:"Испытания гранулята: гранулометрия, насыпная плотность, остаточная влажность.",uz:"Granulat sinovlari: granulometriya, quyma zichlik, qoldiq namligi."},duration:"55 мин",lessons:5,badge:"new",
+    lessonList:[{title:{ru:"Испытания гранулята",uz:"Granulat sinovlari"},content:{ru:`<h2>Контроль качества гранулята</h2><p>После завершения грануляции обязательно проводят испытания гранулята для подтверждения его соответствия спецификации.</p><h3>Основные испытания</h3><div class="keyword-grid"><div class="keyword-card"><strong>Гранулометрический состав</strong><span>Ситовой анализ: d10, d50, d90</span></div><div class="keyword-card"><strong>Насыпная плотность</strong><span>Ненасыпная и утрамбованная, индекс Карра</span></div><div class="keyword-card"><strong>Остаточная влажность</strong><span>Метод потери в массе при сушке (LOD)</span></div><div class="keyword-card"><strong>Угол откоса</strong><span>Характеристика сыпучести</span></div><div class="keyword-card"><strong>Однородность смешивания</strong><span>Равномерное распределение АФИ</span></div></div>`,uz:`<h2>Granulat sifat nazorati</h2><p>Granulyatsiyani tugatgandan so'ng, granulat spetsifikatsiyaga muvofiqligini tasdiqlash uchun majburiy ravishda sinovlar o'tkaziladi.</p>`},quiz:[{q:{ru:"Что измеряется методом LOD?",uz:"LOD usuli bilan nima o'lchanadi?"},opts:{ru:["Размер гранул","Остаточная влажность","Насыпная плотность","Прочность гранул"],uz:["Granulyalar hajmi","Qoldiq namligi","Quyma zichlik","Granulyalar mustahkamligi"]},ans:1}]}]
+  },
+  {id:7,emoji:"🏭",title:{ru:"Подготовка оборудования",uz:"Uskunani tayyorlash"},cat:{ru:"Подготовка",uz:"Tayyorgarlik"},color:"#F5F3FF",desc:{ru:"Чек-лист перед запуском, проверка статуса очистки, калибровка.",uz:"Ishga tushirishdan oldin tekshirish ro'yxati, tozalash statusini tekshirish, kalibrovka."},duration:"40 мин",lessons:4,badge:"new",
+    lessonList:[{title:{ru:"Проверка оборудования",uz:"Uskunani tekshirish"},content:{ru:`<h2>Подготовка оборудования к работе</h2><p>Перед началом производственной операции оператор обязан убедиться в готовности оборудования.</p><h3>Чек-лист проверки</h3><div class="step-list"><div class="step-item"><p>Проверить статус оборудования: должна быть бирка «ЧИСТО» с подписью и датой</p></div><div class="step-item"><p>Убедиться, что нет остатков предыдущей серии (line clearance)</p></div><div class="step-item"><p>Проверить наличие документа на текущую серию</p></div><div class="step-item"><p>Убедиться в работоспособности всех систем</p></div><div class="step-item"><p>Записать результаты проверки в протокол серии</p></div></div><div class="warn-box"><p>⚠️ Запуск оборудования без проверки статуса очистки — грубое нарушение GMP.</p></div>`,uz:`<h2>Uskunani ishga tayyorlash</h2><p>Ishlab chiqarish operatsiyasini boshlashdan oldin operator uskunaning tayyorligini tekshirishi shart.</p>`},quiz:[{q:{ru:"Какой статус должен быть на оборудовании перед началом работы?",uz:"Ishni boshlashdan oldin uskunada qanday status bo'lishi kerak?"},opts:{ru:["ЗАНЯТО","ЧИСТО","В РЕМОНТЕ","НЕ ПРОВЕРЕНО"],uz:["BAND","TOZA","TA'MIRDA","TEKSHIRILMAGAN"]},ans:1}]}]
+  },
+  {id:8,emoji:"💊",title:{ru:"Таблетирование",uz:"Tabletirovka"},cat:{ru:"Технология",uz:"Texnologiya"},color:"#EEF2FF",desc:{ru:"Процесс прессования таблеток, типы таблеточных машин, критические параметры.",uz:"Tabletlarni presslash jarayoni, tabletka mashinalarining turlari, kritik parametrlar."},duration:"65 мин",lessons:6,badge:"new",
+    lessonList:[{title:{ru:"Основы таблетирования",uz:"Tabletirovka asoslari"},content:{ru:`<h2>Таблетирование</h2><p>Таблетирование — процесс прессования гранулята или порошков в таблетки заданной формы, массы и прочности с помощью таблеточной машины.</p><h3>Критические параметры таблетирования</h3><div class="keyword-grid"><div class="keyword-card"><strong>Масса таблетки</strong><span>Контролируется каждые 15 минут</span></div><div class="keyword-card"><strong>Твёрдость</strong><span>Обеспечивает механическую прочность</span></div><div class="keyword-card"><strong>Истираемость</strong><span>Не более 1% потери массы</span></div><div class="keyword-card"><strong>Распадаемость</strong><span>Время разрушения в воде</span></div></div>`,uz:`<h2>Tabletirovka</h2><p>Tabletirovka — tabletka mashinasi yordamida granulat yoki kukun berilgan shakl, massa va mustahkamlikdagi tabletkalarga presslash jarayoni.</p>`},quiz:[{q:{ru:"Как часто контролируют массу таблетки в процессе производства?",uz:"Ishlab chiqarish jarayonida tabletka massasi qanchalik nazorat qilinadi?"},opts:{ru:["Раз в смену","Каждые 15 минут","Только в начале","Раз в час"],uz:["Smenada bir marta","Har 15 daqiqada","Faqat boshida","Soatda bir marta"]},ans:1}]}]
+  },
+  {id:9,emoji:"🧪",title:{ru:"Смешивание",uz:"Aralashtirishg"},cat:{ru:"Технология",uz:"Texnologiya"},color:"#E0F7F6",desc:{ru:"Типы смесителей, параметры смешивания, контроль однородности смеси.",uz:"Aralashtiruvchi turlari, aralashtirishg parametrlari, aralashma bir xilligini nazorat qilish."},duration:"45 мин",lessons:4,badge:"new",lessonList:[{title:{ru:"Принципы смешивания",uz:"Aralashtirishg tamoyillari"},content:{ru:`<h2>Смешивание порошков</h2><p>Смешивание — обязательная стадия перед грануляцией. Цель — равномерное распределение всех компонентов, особенно активной фармацевтической субстанции (АФИ).</p><h3>Типы смесителей</h3><div class="keyword-grid"><div class="keyword-card"><strong>Кубический смеситель</strong><span>Вращение куба — мягкое смешивание</span></div><div class="keyword-card"><strong>V-образный</strong><span>Эффективное смешивание сыпучих материалов</span></div><div class="keyword-card"><strong>Двуконусный</strong><span>Большие объёмы, равномерное смешивание</span></div><div class="keyword-card"><strong>Планетарный</strong><span>Для влажных масс</span></div></div>`,uz:`<h2>Kukunlarni aralashtirishg</h2><p>Aralashtirishg — granulatsiyadan oldin majburiy bosqich. Maqsad — barcha komponentlarning, ayniqsa aktiv farmatsevtik substansiyaning (AFS) bir tekis taqsimlanishi.</p>`},quiz:[{q:{ru:"Какова основная цель стадии смешивания?",uz:"Aralashtirishg bosqichining asosiy maqsadi nima?"},opts:{ru:["Уменьшить размер частиц","Равномерно распределить все компоненты","Увлажнить порошок","Повысить температуру"],uz:["Zarralar hajmini kamaytirish","Barcha komponentlarni bir tekis taqsimlash","Kukun namlashtirish","Haroratni oshirish"]},ans:1}]}]
+  },
+  {id:10,emoji:"🧹",title:{ru:"Очистка оборудования",uz:"Uskunani tozalash"},cat:{ru:"GMP",uz:"GMP"},color:"#ECFDF5",desc:{ru:"Процедуры очистки, валидация очистки, предотвращение перекрёстной контаминации.",uz:"Tozalash protseduralar, tozalashni validatsiya, o'zaro kontaminatsiyani oldini olish."},duration:"50 мин",lessons:5,badge:"new",lessonList:[{title:{ru:"Процедуры очистки",uz:"Tozalash protseduralar"},content:{ru:`<h2>Очистка оборудования</h2><p>Очистка оборудования — критически важная операция для предотвращения перекрёстной контаминации между сериями и продуктами.</p><h3>Принципы очистки по GMP</h3><div class="step-list"><div class="step-item"><p>Очистка проводится строго по утверждённой SOP</p></div><div class="step-item"><p>Используются только разрешённые моющие средства</p></div><div class="step-item"><p>Результаты очистки документируются в журнале</p></div><div class="step-item"><p>Оборудование маркируется статусом «ЧИСТО»</p></div><div class="step-item"><p>Периодически проводится аналитическая проверка чистоты</p></div></div><div class="warn-box"><p>⚠️ Перекрёстная контаминация — попадание остатков одного продукта в другой — является серьёзным нарушением GMP.</p></div>`,uz:`<h2>Uskunani tozalash</h2><p>Uskunani tozalash — seriyalar va mahsulotlar o'rtasida o'zaro kontaminatsiyaning oldini olish uchun muhim operatsiya.</p>`},quiz:[{q:{ru:"Что такое перекрёстная контаминация?",uz:"O'zaro kontaminatsiya nima?"},opts:{ru:["Загрязнение воздуха","Попадание остатков одного продукта в другой","Ошибка в документации","Неисправность оборудования"],uz:["Havo ifloslanishi","Bir mahsulot qoldiqlarining boshqasiga tushishi","Hujjatdagi xato","Uskuna nosozligi"]},ans:1}]}]
+  },
+  {id:11,emoji:"📄",title:{ru:"Производственная документация",uz:"Ishlab chiqarish hujjatlari"},cat:{ru:"GMP",uz:"GMP"},color:"#EEF2FF",desc:{ru:"Протокол серии, журналы, SOP. Правила заполнения и хранения документов.",uz:"Seriya bayonnomasi, jurnallar, SOP. Hujjatlarni to'ldirish va saqlash qoidalari."},duration:"45 мин",lessons:4,badge:"new",lessonList:[{title:{ru:"Виды документов",uz:"Hujjat turlari"},content:{ru:`<h2>Производственная документация</h2><p>Правильная документация — основа GMP. Она обеспечивает прослеживаемость каждой производственной операции.</p><h3>Ключевые документы</h3><div class="keyword-grid"><div class="keyword-card"><strong>Протокол серии</strong><span>Содержит полную историю производства каждой серии</span></div><div class="keyword-card"><strong>Мастер-формула</strong><span>Утверждённый рецептурный состав</span></div><div class="keyword-card"><strong>SOP</strong><span>Стандартные операционные процедуры</span></div><div class="keyword-card"><strong>Спецификации</strong><span>Требования к качеству сырья и готового продукта</span></div><div class="keyword-card"><strong>Форма девиации</strong><span>Документ при отклонении от нормы</span></div><div class="keyword-card"><strong>CAPA</strong><span>Корректирующие и предупреждающие действия</span></div></div>`,uz:`<h2>Ishlab chiqarish hujjatlari</h2><p>To'g'ri hujjatlashtirish GMP asosi. U har bir ishlab chiqarish operatsiyasining kuzatilishini ta'minlaydi.</p>`},quiz:[{q:{ru:"Что содержит протокол серии?",uz:"Seriya bayonnomasi nimani o'z ichiga oladi?"},opts:{ru:["Только результаты испытаний","Полную историю производства серии","Только подписи операторов","Список оборудования"],uz:["Faqat sinov natijalari","Seriya ishlab chiqarishning to'liq tarixi","Faqat operatorlar imzolari","Uskunalar ro'yxati"]},ans:1}]}]
+  },
+  {id:12,emoji:"⚠️",title:{ru:"Отклонения и CAPA",uz:"Og'ishlar va CAPA"},cat:{ru:"GMP",uz:"GMP"},color:"#FEF9C3",desc:{ru:"Оформление девиаций, расследование причин, разработка CAPA-мероприятий.",uz:"Deviatsiyalarni rasmiylashtirish, sabablarni tekshirish, CAPA tadbirlarini ishlab chiqish."},duration:"50 мин",lessons:4,badge:"hot",lessonList:[{title:{ru:"Что такое девиация?",uz:"Deviatsiya nima?"},content:{ru:`<h2>Отклонения (Девиации)</h2><p>Девиация — это любое несоответствие утверждённым процедурам, спецификациям или плановым параметрам процесса.</p><div class="warn-box"><p>⚠️ Любая девиация должна быть задокументирована незамедлительно. Замалчивание отклонений является грубым нарушением GMP.</p></div><h3>Порядок действий при отклонении</h3><div class="step-list"><div class="step-item"><p>Остановить процесс (если требуется)</p></div><div class="step-item"><p>Немедленно сообщить руководителю</p></div><div class="step-item"><p>Заполнить форму девиации</p></div><div class="step-item"><p>Провести расследование причин</p></div><div class="step-item"><p>Разработать CAPA-мероприятия</p></div><div class="step-item"><p>Закрыть девиацию после устранения</p></div></div><h3>CAPA</h3><p>CAPA (Corrective and Preventive Action) — система корректирующих и предупреждающих действий, направленных на устранение причин отклонений и предотвращение их повторения.</p>`,uz:`<h2>Og'ishlar (Deviatsiyalar)</h2><p>Deviatsiya — bu tasdiqlangan protseduralar, spetsifikatsiyalar yoki jarayonning rejalashtirilgan parametrlaridan har qanday nomuvofiqlik.</p>`},quiz:[{q:{ru:"Что нужно сделать первым при обнаружении отклонения?",uz:"Og'ish aniqlanganda birinchi navbatda nima qilish kerak?"},opts:{ru:["Исправить самостоятельно","Немедленно сообщить руководителю","Дождаться конца смены","Проигнорировать"],uz:["O'zi tuzatish","Rahbarga darhol xabar berish","Smenaning oxirigacha kutish","E'tibor bermaslik"]},ans:1}]}]
+  },
+  {id:13,emoji:"🦺",title:{ru:"Охрана труда",uz:"Mehnat muhofazasi"},cat:{ru:"Безопасность",uz:"Xavfsizlik"},color:"#FEF9C3",desc:{ru:"СИЗ, работа с химическими веществами, действия при аварийных ситуациях.",uz:"OHV, kimyoviy moddalar bilan ishlash, favqulodda vaziyatlarda harakat qilish."},duration:"40 мин",lessons:3,badge:"new",lessonList:[{title:{ru:"Средства защиты",uz:"Himoya vositalari"},content:{ru:`<h2>Охрана труда в цехе ТЛФ</h2><p>Безопасность на производстве — обязанность каждого сотрудника. Нарушение правил охраны труда может привести к травмам, профессиональным заболеваниям и авариям.</p><h3>Обязательные СИЗ в цехе грануляции</h3><div class="keyword-grid"><div class="keyword-card"><strong>Халат/спецодежда</strong><span>Чистый, без посторонних предметов</span></div><div class="keyword-card"><strong>Перчатки</strong><span>При работе с химическими веществами</span></div><div class="keyword-card"><strong>Респиратор/маска</strong><span>При работе с пылящими материалами</span></div><div class="keyword-card"><strong>Очки/щиток</strong><span>При риске разбрызгивания</span></div></div><div class="warn-box"><p>⚠️ При органических растворителях — работа только в вытяжном шкафу или зоне с вентиляцией.</p></div>`,uz:`<h2>TLF tsexida mehnat muhofazasi</h2><p>Ishlab chiqarishda xavfsizlik — har bir xodimning burchi.</p>`},quiz:[{q:{ru:"Что нужно надеть при работе с пылящими материалами?",uz:"Changituvchi materiallar bilan ishlashda nima kiyish kerak?"},opts:{ru:["Только перчатки","Респиратор и защитные очки","Только халат","Ничего особенного"],uz:["Faqat qo'lqop","Respirator va himoya ko'zoynagi","Faqat xalat","Hech qanday maxsus narsa emas"]},ans:1}]}]
+  },
+  {id:14,emoji:"🧼",title:{ru:"Производственная санитария",uz:"Ishlab chiqarish sanitariyasi"},cat:{ru:"GMP",uz:"GMP"},color:"#ECFDF5",desc:{ru:"Требования к чистоте помещений, классификация зон, мониторинг окружающей среды.",uz:"Xonalar tozaligiga talablar, zonalarni tasniflash, atrof-muhit monitoringi."},duration:"40 мин",lessons:3,badge:"new",lessonList:[{title:{ru:"Классификация чистых помещений",uz:"Toza xonalarni tasniflash"},content:{ru:`<h2>Производственная санитария</h2><p>Производственная санитария — комплекс мер по поддержанию надлежащего санитарного состояния производственных помещений, оборудования и персонала.</p><h3>Классы чистых помещений (EU GMP)</h3><div class="keyword-grid"><div class="keyword-card"><strong>Класс A</strong><span>Зоны высокого риска: розлив, наполнение</span></div><div class="keyword-card"><strong>Класс B</strong><span>Фон для класса A</span></div><div class="keyword-card"><strong>Класс C</strong><span>Менее критические операции</span></div><div class="keyword-card"><strong>Класс D</strong><span>Вспомогательные зоны</span></div></div>`,uz:`<h2>Ishlab chiqarish sanitariyasi</h2><p>Ishlab chiqarish sanitariyasi — ishlab chiqarish binolari, uskunalar va xodimlarning tegishli sanitariya holatini saqlash bo'yicha chora-tadbirlar majmui.</p>`},quiz:[{q:{ru:"Какой класс чистоты является наиболее строгим?",uz:"Qaysi tozalik sinfi eng qattiq?"},opts:{ru:["Класс D","Класс C","Класс B","Класс A"],uz:["D sinf","C sinf","B sinf","A sinf"]},ans:3}]}]
+  },
+  {id:15,emoji:"🔭",title:{ru:"Просеивание",uz:"Elash"},cat:{ru:"Подготовка",uz:"Tayyorgarlik"},color:"#F5F3FF",desc:{ru:"Виды сит, параметры просеивания, контроль гранулометрического состава.",uz:"Elak turlari, elash parametrlari, granulometrik tarkibni nazorat qilish."},duration:"35 мин",lessons:3,badge:"new",lessonList:[{title:{ru:"Основы просеивания",uz:"Elash asoslari"},content:{ru:`<h2>Просеивание в производстве ТЛФ</h2><p>Просеивание применяется для разделения частиц по размеру, удаления инородных включений и получения гранулята с заданным распределением частиц.</p><h3>Основные типы сит</h3><div class="keyword-grid"><div class="keyword-card"><strong>Вибросито</strong><span>Наиболее распространённый тип в ТЛФ</span></div><div class="keyword-card"><strong>Коническое сито</strong><span>Для непрерывного процесса</span></div><div class="keyword-card"><strong>Ротационное сито</strong><span>Большие объёмы</span></div></div>`,uz:`<h2>TLF ishlab chiqarishda elash</h2><p>Elash zarralarni hajmi bo'yicha ajratish, begona qo'shimchalarni olib tashlash va zarrachalarning belgilangan taqsimoti bilan granulat olish uchun qo'llaniladi.</p>`},quiz:[{q:{ru:"Какое сито наиболее распространено в производстве ТЛФ?",uz:"TLF ishlab chiqarishda qaysi elak eng keng tarqalgan?"},opts:{ru:["Коническое","Ротационное","Вибросито","Барабанное"],uz:["Konik","Rotatsion","Vibratsion elak","Barabanli"]},ans:2}]}]
+  },
+  {id:16,emoji:"💉",title:{ru:"Покрытие таблеток",uz:"Tabletkani qoplash"},cat:{ru:"Технология",uz:"Texnologiya"},color:"#FFF3ED",desc:{ru:"Нанесение плёночного и сахарного покрытия. Параметры процесса, типичные дефекты.",uz:"Plyonka va shakar qoplama qo'llash. Jarayon parametrlari, tipik nuqsonlar."},duration:"55 мин",lessons:5,badge:"new",lessonList:[{title:{ru:"Типы покрытий",uz:"Qoplama turlari"},content:{ru:`<h2>Покрытие таблеток</h2><p>Покрытие (нанесение оболочки) наносится на таблетки для защиты, маскировки вкуса, улучшения внешнего вида или обеспечения нужного профиля высвобождения.</p><h3>Типы покрытий</h3><div class="keyword-grid"><div class="keyword-card"><strong>Плёночное покрытие</strong><span>Тонкий полимерный слой. Быстро, современно.</span></div><div class="keyword-card"><strong>Сахарное покрытие</strong><span>Традиционное. Многослойное нанесение.</span></div><div class="keyword-card"><strong>Кишечнорастворимое</strong><span>Распадается только в кишечнике.</span></div><div class="keyword-card"><strong>Пролонгированное</strong><span>Контролируемое высвобождение.</span></div></div>`,uz:`<h2>Tabletkani qoplash</h2><p>Tabletkalarga qoplama himoya, ta'mni yopish, tashqi ko'rinishni yaxshilash yoki zarur bo'shatish profilini ta'minlash uchun qo'llaniladi.</p>`},quiz:[{q:{ru:"Какое покрытие обеспечивает высвобождение только в кишечнике?",uz:"Qaysi qoplama faqat ichakda bo'shatishni ta'minlaydi?"},opts:{ru:["Плёночное","Сахарное","Кишечнорастворимое","Пролонгированное"],uz:["Plyonkali","Shakarli","Ichakda eriydigan","Uzaytirilgan"]},ans:2}]}]
+  },
+  {id:17,emoji:"💊",title:{ru:"Капсулирование",uz:"Kapsulyatsiya"},cat:{ru:"Технология",uz:"Texnologiya"},color:"#EEF2FF",desc:{ru:"Твёрдые желатиновые капсулы, машины для капсулирования, контроль наполнения.",uz:"Qattiq jelatin kapsulalar, kapsulyatsiya mashinalari, to'ldirishni nazorat qilish."},duration:"50 мин",lessons:4,badge:"new",lessonList:[{title:{ru:"Основы капсулирования",uz:"Kapsulyatsiya asoslari"},content:{ru:`<h2>Капсулирование</h2><p>Капсулирование — процесс наполнения желатиновых или ГПМЦ-капсул порошком, гранулятом, пеллетами или жидкостями.</p><h3>Размеры капсул (от 000 до 5)</h3><div class="keyword-grid"><div class="keyword-card"><strong>000</strong><span>Самая большая — 1,37 мл</span></div><div class="keyword-card"><strong>0</strong><span>Стандартная — 0,68 мл</span></div><div class="keyword-card"><strong>1</strong><span>0,50 мл</span></div><div class="keyword-card"><strong>5</strong><span>Самая маленькая — 0,13 мл</span></div></div>`,uz:`<h2>Kapsulyatsiya</h2><p>Kapsulyatsiya — jelatin yoki HPMC kapsulalarini kukun, granulat, pelletlar yoki suyuqliklar bilan to'ldirish jarayoni.</p>`},quiz:[{q:{ru:"Какой размер капсулы является самым большим?",uz:"Qaysi kapsul hajmi eng katta?"},opts:{ru:["5","1","0","000"],uz:["5","1","0","000"]},ans:3}]}]
+  },
+  {id:18,emoji:"🛡️",title:{ru:"Фарм. система качества",uz:"Farm. sifat tizimi"},cat:{ru:"Система",uz:"Tizim"},color:"#E8F0FE",desc:{ru:"ICH Q10, управление рисками, постоянное улучшение, жизненный цикл продукта.",uz:"ICH Q10, xavflarni boshqarish, doimiy yaxshilanish, mahsulot hayot davri."},duration:"60 мин",lessons:5,badge:"new",lessonList:[{title:{ru:"ICH Q10 — Система качества",uz:"ICH Q10 — Sifat tizimi"},content:{ru:`<h2>Фармацевтическая система качества</h2><p>ICH Q10 описывает всестороннюю модель эффективной фармацевтической системы качества, основанной на концепции ISO и дополненной применимыми регуляторными требованиями GMP.</p><h3>Элементы фармацевтической системы качества</h3><div class="step-list"><div class="step-item"><p><strong>Управление знаниями:</strong> сбор, анализ и применение знаний о процессах и продуктах</p></div><div class="step-item"><p><strong>Управление рисками для качества:</strong> оценка и контроль рисков для качества продукции</p></div><div class="step-item"><p><strong>CAPA:</strong> корректирующие и предупреждающие действия</p></div><div class="step-item"><p><strong>Управление изменениями:</strong> контролируемое внедрение изменений</p></div></div>`,uz:`<h2>Farmatsevtik sifat tizimi</h2><p>ICH Q10 ISO kontseptsiyasiga asoslangan va GMP me'yoriy talablari bilan to'ldirilgan samarali farmatsevtik sifat tizimining to'liq modelini tavsiflaydi.</p>`},quiz:[{q:{ru:"На чём основана модель ICH Q10?",uz:"ICH Q10 modeli nimaga asoslangan?"},opts:{ru:["Только на GMP","На концепции ISO с дополнением GMP","Только на ISO","На национальных стандартах"],uz:["Faqat GMPga","GMP qo'shimchasi bilan ISO kontseptsiyasiga","Faqat ISOga","Milliy standartlarga"]},ans:1}]}]
+  }
+];
+
+// ========== STATE ==========
+let state = JSON.parse(localStorage.getItem('tlfState')||'{}');
+if(!state.completed) state.completed={};
+if(!state.scores) state.scores={};
+if(!state.certs) state.certs=[];
+if(!state.userName) state.userName='Оператор';
+if(!state.regDate) { state.regDate=new Date().toLocaleDateString('ru-RU'); }
+function saveState(){localStorage.setItem('tlfState',JSON.stringify(state));}
+
+// ========== AUDIO ==========
+const audio = new Audio();
+let currentWaveBars = [];
+let audioTimer = null;
+let isAudioPlaying = false;
+let currentLessonAudioKey = null;
+
+function buildWave(containerId, numBars) {
+  const el = document.getElementById(containerId);
+  if(!el) return;
+  el.innerHTML = '';
+  currentWaveBars = [];
+  for(let i=0;i<numBars;i++){
+    const b = document.createElement('div');
+    b.className = 'ap-bar';
+    const h = 10 + Math.abs(Math.sin(i*0.45)*26) + Math.random()*8;
+    b.style.height = Math.round(h)+'px';
+    el.appendChild(b);
+    currentWaveBars.push(b);
+  }
+}
+
+function updateWave(){
+  if(!audio.duration) return;
+  const pct = audio.currentTime / audio.duration;
+  const playedCount = Math.floor(pct * currentWaveBars.length);
+  currentWaveBars.forEach((b,i)=>{ b.className = 'ap-bar' + (i<playedCount?' played':'') + (i===playedCount?' active':''); });
+  const el = document.getElementById('apRange');
+  if(el) el.value = Math.round(pct*100);
+  const ct = document.getElementById('apCurrentTime');
+  if(ct) ct.textContent = fmtTime(audio.currentTime);
+}
+
+function fmtTime(s){
+  s=Math.floor(s||0);
+  return Math.floor(s/60)+':'+(s%60<10?'0':'')+(s%60);
+}
+
+audio.addEventListener('timeupdate', updateWave);
+audio.addEventListener('ended', ()=>{
+  isAudioPlaying=false;
+  const btn = document.getElementById('apPlayBtn');
+  if(btn) btn.innerHTML = playIcon();
+  if(currentLessonAudioKey) {
+    state.audioProgress = state.audioProgress||{};
+    state.audioProgress[currentLessonAudioKey] = 0;
+    saveState();
+  }
+});
+
+function playIcon(){return '<svg viewBox="0 0 24 24" width="18" height="18" fill="var(--primary)"><path d="M5 3l14 9-14 9V3z"/></svg>';}
+function pauseIcon(){return '<svg viewBox="0 0 24 24" width="18" height="18" fill="var(--primary)"><rect x="6" y="4" width="4" height="16"/><rect x="14" y="4" width="4" height="16"/></svg>';}
+
+function toggleAudio(){
+  if(!audio.src){showToast(i18n[lang].no_audio);return;}
+  if(isAudioPlaying){audio.pause();isAudioPlaying=false;}
+  else{audio.play();isAudioPlaying=true;}
+  const btn=document.getElementById('apPlayBtn');
+  if(btn) btn.innerHTML = isAudioPlaying?pauseIcon():playIcon();
+}
+
+function seekAudio(val){
+  if(audio.duration) audio.currentTime=(val/100)*audio.duration;
+}
+
+function skipAudio(sec){
+  audio.currentTime = Math.max(0,Math.min(audio.duration||0, audio.currentTime+sec));
+}
+
+function setAudioSpeed(val,btn){
+  audio.playbackRate=parseFloat(val);
+  document.querySelectorAll('.ap-speed-btn').forEach(b=>b.classList.remove('active'));
+  btn.classList.add('active');
+}
+
+// ========== RENDER ==========
+function renderCourseCard(c, mini){
+  const prog = state.completed[c.id] ? 100 : 0;
+  const badge = c.badge==='hot'?`<div class="course-badge badge-hot">🔥 ${lang==='ru'?'Важно':'Muhim'}</div>`:
+                c.badge==='new'?`<div class="course-badge badge-new">${lang==='ru'?'Новое':'Yangi'}</div>`:'';
+  const doneBadge = prog===100?`<div class="course-badge badge-done">✓</div>`:'';
+  return `<div class="course-card" onclick="openCourse(${c.id})">
+    ${prog===100?doneBadge:badge}
+    <div class="course-card-header">
+      <div class="course-emoji" style="background:${c.color}">${c.emoji}</div>
+      <div class="course-info">
+        <div class="course-category">${c.cat[lang]}</div>
+        <div class="course-title">${c.title[lang]}</div>
+        <div class="course-desc">${c.desc[lang].substring(0,80)}...</div>
+      </div>
+    </div>
+    <div class="course-progress"><div class="course-progress-fill" style="width:${prog}%"></div></div>
+    <div class="course-card-footer">
+      <div class="course-meta">
+        <div class="course-meta-item">⏱ ${c.duration}</div>
+        <div class="course-meta-item">📖 ${c.lessons} ${lang==='ru'?'уроков':'dars'}</div>
+      </div>
+      <div style="font-size:12px;font-weight:600;color:var(--primary)">${lang==='ru'?'Открыть':'Ochish'} →</div>
+    </div>
+  </div>`;
+}
+
+function renderHomeCourses(){
+  const grid = document.getElementById('homeCourseGrid');
+  if(!grid) return;
+  grid.innerHTML = COURSES.slice(0,6).map(c=>renderCourseCard(c)).join('');
+}
+
+function renderAllCourses(){
+  const grid = document.getElementById('allCourseGrid');
+  if(!grid) return;
+  grid.innerHTML = COURSES.map(c=>renderCourseCard(c)).join('');
+}
+
+let currentCourseId = null;
+let currentLessonIdx = 0;
+let prevPage = 'home';
+let quizAnswers = {};
+let quizSubmitted = false;
+
+function openCourse(id){
+  prevPage = document.querySelector('.page.active').id.replace('page-','');
+  currentCourseId = id;
+  currentLessonIdx = 0;
+  quizAnswers={};quizSubmitted=false;
+  renderLessonPage();
+  showPage('lesson');
+}
+
+function goBack(){
+  showPage(prevPage);
+  if(audio){audio.pause();isAudioPlaying=false;}
+}
+
+function renderLessonPage(){
+  const course = COURSES.find(c=>c.id===currentCourseId);
+  if(!course) return;
+  const lesson = course.lessonList[currentLessonIdx];
+  quizAnswers={};quizSubmitted=false;
+
+  // SIDEBAR
+  let sidebarHTML = `<div class="sidebar-header"><h3>${course.title[lang]}</h3><p>${course.cat[lang]} · ${course.duration}</p></div>
+  <div class="sidebar-progress">
+    <div style="display:flex;justify-content:space-between;font-size:12px;color:var(--text3)">
+      <span>${lang==='ru'?'Прогресс':'Jarayon'}</span>
+      <span>${currentLessonIdx+1} / ${course.lessonList.length}</span>
+    </div>
+    <div class="sidebar-prog-bar"><div class="sidebar-prog-fill" style="width:${Math.round(((currentLessonIdx)/course.lessonList.length)*100)}%"></div></div>
+  </div>
+  <div class="sidebar-lessons">`;
+  course.lessonList.forEach((l,i)=>{
+    sidebarHTML+=`<div class="sidebar-lesson ${i===currentLessonIdx?'active':''} ${i<currentLessonIdx?'done':''}" onclick="goToLesson(${i})">
+      <div class="sl-num">${i<currentLessonIdx?'✓':i+1}</div>
+      <div class="sl-info"><div class="sl-title">${l.title[lang]}</div><div class="sl-dur">${i18n[lang].lesson_label} ${i+1}</div></div>
+    </div>`;
+  });
+  sidebarHTML+='</div>';
+  document.getElementById('lessonSidebar').innerHTML = sidebarHTML;
+
+  // CONTENT
+  const audioKey = `course${currentCourseId}_lesson${currentLessonIdx}`;
+  currentLessonAudioKey = audioKey;
+  const savedProg = (state.audioProgress||{})[audioKey]||0;
+
+  let contentHTML = `
+  <div class="audio-player">
+    <div class="ap-title">${course.emoji} ${course.title[lang]}</div>
+    <div class="ap-name">${lesson.title[lang]}</div>
+    <div class="ap-wave" id="apWave" onclick="toggleAudio()"></div>
+    <div class="ap-controls">
+      <button class="ap-btn ap-skip" onclick="skipAudio(-15)">
+        <svg viewBox="0 0 24 24" width="14" height="14"><path d="M12.5 8V5l-5 5 5 5v-3c3.31 0 6 2.69 6 6s-2.69 6-6 6-6-2.69-6-6h-2c0 4.42 3.58 8 8 8s8-3.58 8-8-3.58-8-8-8z" fill="white"/></svg>
+      </button>
+      <button class="ap-btn ap-play" id="apPlayBtn" onclick="toggleAudio()">${playIcon()}</button>
+      <button class="ap-btn ap-skip" onclick="skipAudio(15)">
+        <svg viewBox="0 0 24 24" width="14" height="14"><path d="M11.5 8V5l5 5-5 5v-3c-3.31 0-6 2.69-6 6s2.69 6 6 6 6-2.69 6-6h2c0 4.42-3.58 8-8 8s-8-3.58-8-8 3.58-8 8-8z" fill="white"/></svg>
+      </button>
+      <div class="ap-progress">
+        <input type="range" class="ap-range" id="apRange" value="${savedProg}" oninput="seekAudio(this.value)">
+        <div class="ap-times"><span id="apCurrentTime">0:00</span><span>${lesson.title[lang]}</span></div>
+      </div>
+      <a class="ap-dl" href="#" download title="Скачать">
+        <svg viewBox="0 0 24 24" width="12" height="12" fill="rgba(255,255,255,0.7)"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M7 10l5 5 5-5M12 15V3"/></svg>
+        ${lang==='ru'?'Скачать':'Yuklab olish'}
+      </a>
+    </div>
+    <div class="ap-speed-row">
+      <span class="ap-speed-label">${lang==='ru'?'Скорость:':'Tezlik:'}</span>
+      <button class="ap-speed-btn" onclick="setAudioSpeed(0.75,this)">0.75×</button>
+      <button class="ap-speed-btn active" onclick="setAudioSpeed(1,this)">1×</button>
+      <button class="ap-speed-btn" onclick="setAudioSpeed(1.25,this)">1.25×</button>
+      <button class="ap-speed-btn" onclick="setAudioSpeed(1.5,this)">1.5×</button>
+      <button class="ap-speed-btn" onclick="setAudioSpeed(2,this)">2×</button>
+    </div>
+  </div>
+  <div class="lesson-text">${lesson.content[lang]}</div>`;
+
+  // QUIZ
+  if(lesson.quiz && lesson.quiz.length>0){
+    contentHTML += `<div class="quiz-section">
+    <div class="quiz-header"><h3>🧠 ${i18n[lang].quiz_title}</h3><p>${i18n[lang].quiz_sub}</p></div>
+    <div class="quiz-body" id="quizBody">`;
+    lesson.quiz.forEach((q,qi)=>{
+      contentHTML+=`<div class="quiz-question" id="qq${qi}">
+        <div class="quiz-q-num">${i18n[lang].lesson_label} ${qi+1}</div>
+        <div class="quiz-q-text">${q.q[lang]}</div>
+        <div class="quiz-options">`;
+      q.opts[lang].forEach((opt,oi)=>{
+        contentHTML+=`<button class="quiz-option" id="qo_${qi}_${oi}" onclick="selectAnswer(${qi},${oi},${q.ans})">${opt}</button>`;
+      });
+      contentHTML+=`</div></div>`;
+    });
+    contentHTML+=`<button class="quiz-btn" id="submitQuizBtn" onclick="submitQuiz()">${i18n[lang].submit_quiz}</button>
+    <div id="quizResultBox" style="display:none"></div>
+    </div></div>`;
+  }
+
+  // NEXT
+  if(currentLessonIdx < course.lessonList.length-1){
+    contentHTML+=`<div style="margin-top:24px;display:flex;justify-content:flex-end">
+      <button class="btn btn-primary" onclick="goToLesson(${currentLessonIdx+1})">${i18n[lang].next_lesson}</button>
+    </div>`;
+  } else {
+    contentHTML+=`<div style="margin-top:24px;text-align:center;padding:24px;background:var(--surface2);border-radius:var(--radius)">
+      <div style="font-size:36px;margin-bottom:8px">🎉</div>
+      <div style="font-family:Manrope,sans-serif;font-size:18px;font-weight:700;margin-bottom:8px">${lang==='ru'?'Курс завершён!':'Kurs yakunlandi!'}</div>
+      <p style="color:var(--text3);margin-bottom:16px">${lang==='ru'?'Вы прошли все уроки этого курса':'Siz ushbu kursning barcha darslarini o\'tdingiz'}</p>
+      <button class="btn btn-success" onclick="completeCourse(${currentCourseId})">${lang==='ru'?'🏆 Получить сертификат':'🏆 Sertifikat olish'}</button>
+    </div>`;
+  }
+
+  document.getElementById('lessonContent').innerHTML = contentHTML;
+  buildWave('apWave', 70);
+  document.getElementById('lessonContent').scrollTop = 0;
+  window.scrollTo(0,0);
+}
+
+function goToLesson(idx){
+  currentLessonIdx = idx;
+  quizAnswers={};quizSubmitted=false;
+  if(audio){audio.pause();isAudioPlaying=false;}
+  renderLessonPage();
+}
+
+function selectAnswer(qi,oi,correct){
+  if(quizSubmitted) return;
+  quizAnswers[qi]=oi;
+  const course = COURSES.find(c=>c.id===currentCourseId);
+  const numOpts = course.lessonList[currentLessonIdx].quiz[qi].opts[lang].length;
+  for(let i=0;i<numOpts;i++){
+    const btn=document.getElementById(`qo_${qi}_${i}`);
+    if(btn){btn.classList.remove('selected');if(i===oi)btn.classList.add('selected');}
+  }
+}
+
+function submitQuiz(){
+  if(quizSubmitted) return;
+  quizSubmitted=true;
+  const course = COURSES.find(c=>c.id===currentCourseId);
+  const quiz = course.lessonList[currentLessonIdx].quiz;
+  let correct=0;
+  quiz.forEach((q,qi)=>{
+    const chosen = quizAnswers[qi];
+    for(let i=0;i<q.opts[lang].length;i++){
+      const btn=document.getElementById(`qo_${qi}_${i}`);
+      if(!btn) continue;
+      btn.disabled=true;
+      if(i===q.ans) btn.classList.add('correct');
+      else if(i===chosen && chosen!==q.ans) btn.classList.add('wrong');
+    }
+    if(chosen===q.ans) correct++;
+  });
+  const pct=Math.round((correct/quiz.length)*100);
+  const resultBox=document.getElementById('quizResultBox');
+  resultBox.style.display='block';
+  resultBox.innerHTML=`<div class="quiz-result">
+    <div class="quiz-score">${pct}%</div>
+    <div class="quiz-score-label">${i18n[lang].score_label}: ${correct} / ${quiz.length}</div>
+    <p style="margin-top:8px;font-size:14px;color:${pct>=70?'var(--success)':'var(--danger)'}">${pct>=70?(lang==='ru'?'✓ Отлично! Можно переходить к следующему уроку':'✓ Ajoyib! Keyingi darsga o\'tish mumkin'):(lang==='ru'?'Повторите материал и попробуйте снова':'Materialni takrorlang va qayta urinib ko\'ring')}</p>
+  </div>`;
+  document.getElementById('submitQuizBtn').style.display='none';
+  const key=`${currentCourseId}_${currentLessonIdx}`;
+  state.scores[key]=pct;
+  saveState();
+}
+
+function completeCourse(id){
+  state.completed[id]=true;
+  const course = COURSES.find(c=>c.id===id);
+  const certObj={courseId:id,courseName:course.title[lang],date:new Date().toLocaleDateString('ru-RU')};
+  if(!state.certs.find(c=>c.courseId===id)) state.certs.push(certObj);
+  saveState();
+  showCertModal(course.title[lang]);
+  renderHomeCourses();
+  updateStats();
+}
+
+function showCertModal(courseName){
+  document.getElementById('certModalName').textContent = state.userName;
+  document.getElementById('certModalCourse').textContent = courseName;
+  document.getElementById('certModalDate').textContent = new Date().toLocaleDateString('ru-RU');
+  document.getElementById('certModal').classList.add('open');
+}
+function closeCertModal(){document.getElementById('certModal').classList.remove('open');}
+
+// ========== SEARCH ==========
+function doSearch(q){
+  const results = document.getElementById('searchResults');
+  if(!q.trim()){results.innerHTML='';return;}
+  const found=[];
+  COURSES.forEach(c=>{
+    if(c.title[lang].toLowerCase().includes(q.toLowerCase())||c.desc[lang].toLowerCase().includes(q.toLowerCase())||c.cat[lang].toLowerCase().includes(q.toLowerCase())){
+      found.push(c);
+    }
+  });
+  if(found.length===0){
+    results.innerHTML=`<div style="text-align:center;padding:40px;color:var(--text3)">${lang==='ru'?'Ничего не найдено':'Hech narsa topilmadi'}</div>`;
+    return;
+  }
+  results.innerHTML=`<div class="courses-grid">${found.map(c=>renderCourseCard(c)).join('')}</div>`;
+}
+
+// ========== PROFILE ==========
+function renderProfile(){
+  const done = Object.keys(state.completed).length;
+  document.getElementById('profileName').textContent = state.userName;
+  document.getElementById('profileAvatarBig').textContent = state.userName.slice(0,2).toUpperCase();
+  document.getElementById('userAvatarNav').textContent = state.userName.slice(0,2).toUpperCase();
+  document.getElementById('userNameNav').textContent = state.userName.split(' ')[0];
+  document.getElementById('profileRegDate').textContent = state.regDate;
+  document.getElementById('profileDone').textContent = `${done} ${lang==='ru'?'из':'dan'} 18`;
+  document.getElementById('profileCerts').textContent = state.certs.length;
+  const scores = Object.values(state.scores);
+  const avg = scores.length ? Math.round(scores.reduce((a,b)=>a+b,0)/scores.length) : null;
+  document.getElementById('profileScore').textContent = avg ? avg+'%' : '—';
+
+  // Certs
+  const certsBlock = document.getElementById('certsBlock');
+  certsBlock.innerHTML = state.certs.map(c=>`
+    <div class="cert-card">
+      <div class="cert-icon">🏆</div>
+      <div class="cert-title">${i18n[lang].cert_title}</div>
+      <div class="cert-name">${c.courseName}</div>
+      <div class="cert-date">${c.date}</div>
+    </div>`).join('');
+
+  // Progress bars
+  const cats = [...new Set(COURSES.map(c=>c.cat[lang]))];
+  let pbHTML='';
+  cats.forEach(cat=>{
+    const catCourses=COURSES.filter(c=>c.cat[lang]===cat);
+    const catDone=catCourses.filter(c=>state.completed[c.id]).length;
+    const pct=Math.round((catDone/catCourses.length)*100);
+    pbHTML+=`<div class="prog-row"><div class="prog-row-header"><span>${cat}</span><span>${catDone}/${catCourses.length}</span></div><div class="prog-bar"><div class="prog-fill" style="width:${pct}%"></div></div></div>`;
+  });
+  document.getElementById('progressBars').innerHTML=pbHTML;
+
+  // Test results
+  let trHTML='';
+  Object.entries(state.scores).forEach(([key,score])=>{
+    const [cid,lid]=key.split('_');
+    const c=COURSES.find(x=>x.id===parseInt(cid));
+    if(!c) return;
+    trHTML+=`<div class="prog-row"><div class="prog-row-header"><span>${c.title[lang]}</span><span style="color:${score>=70?'var(--success)':'var(--danger)'}">${score}%</span></div><div class="prog-bar"><div class="prog-fill" style="width:${score}%;background:${score>=70?'var(--success)':'var(--danger)'}"></div></div></div>`;
+  });
+  document.getElementById('testResults').innerHTML = trHTML || `<p style="color:var(--text3);font-size:13px">${lang==='ru'?'Тесты ещё не пройдены':'Testlar hali o\'tilmagan'}</p>`;
+}
+
+function updateStats(){
+  const done = Object.keys(state.completed).length;
+  document.getElementById('statCompleted').textContent = done;
+  document.getElementById('statCerts').textContent = state.certs.length;
+  document.getElementById('statTime').textContent = done*10;
+  const scores = Object.values(state.scores);
+  const avg = scores.length ? Math.round(scores.reduce((a,b)=>a+b,0)/scores.length)+'%' : '—';
+  document.getElementById('statScore').textContent = avg;
+  document.getElementById('completedCount').textContent = done;
+}
+
+// ========== AI CHAT ==========
+const AI_KB = {
+  "gmp": {ru:"GMP (Good Manufacturing Practice) — надлежащая производственная практика. Это система требований к организации производства и контроля качества лекарственных средств. Основные принципы: чёткие процедуры (SOP), обученный персонал, подходящее оборудование, точная документация.",uz:"GMP — Yaxshi ishlab chiqarish amaliyoti. Bu dori vositalarini ishlab chiqarish va sifat nazoratini tashkil etish talablari tizimi."},
+  "gmp nima": {ru:"GMP — это система международных стандартов для фармацевтического производства.",uz:"GMP — farmatsevtika ishlab chiqarishi uchun xalqaro standartlar tizimi."},
+  "влажная грануляция": {ru:"Влажная грануляция — добавление связующей жидкости к порошку, перемешивание, сушка. Этапы: смешивание → добавление связующего → влажное сито → сушка → сухое сито → смешивание с лубрикантами. Связующие: ПВП, ГПМЦ, МЦ.",uz:"Nam granulatsiya — kukunga bog'lovchi suyuqlik qo'shish, aralashtirishg, quritish. Bosqichlar: aralashtirishg → bog'lovchi qo'shish → nam elash → quritish → quruq elash."},
+  "сухая грануляция": {ru:"Сухая грануляция — уплотнение порошка без жидкости. Методы: роллер-компактор, прессование в слаги. Применяется для влаго- и термочувствительных субстанций.",uz:"Quruq granulatsiya — suyuqliqsiz kukun zichlashtirish. Usullar: roller-kompaktör, slag presslash. Nam va issiqlikka sezgir substansiyalar uchun qo'llaniladi."},
+  "девиация": {ru:"Девиация — отклонение от утверждённых процедур или параметров. Порядок действий: остановить процесс → сообщить руководителю → заполнить форму девиации → провести расследование → CAPA.",uz:"Deviatsiya — tasdiqlangan protseduralar yoki parametrlardan og'ish. Harakatlar tartibi: jarayonni to'xtatish → rahbarga xabar berish → deviatsiya shaklini to'ldirish → tekshirish → CAPA."},
+  "capa": {ru:"CAPA (Corrective and Preventive Action) — корректирующие и предупреждающие действия. Направлены на устранение причин отклонений и предотвращение их повторения.",uz:"CAPA — tuzatuvchi va preventiv harakatlar. Og'ish sabablarini bartaraf etish va ularning takrorlanishini oldini olishga qaratilgan."},
+  "очистка": {ru:"Очистка оборудования проводится по утверждённой SOP. После очистки оборудование маркируется 'ЧИСТО' с датой и подписью. Это предотвращает перекрёстную контаминацию.",uz:"Uskunani tozalash tasdiqlangan SOP bo'yicha amalga oshiriladi. Tozalashdan so'ng uskuna sana va imzo bilan 'TOZA' deb belgilanadi."},
+  "таблетирование": {ru:"Таблетирование — прессование гранулята в таблетки. Контролируемые параметры: масса (каждые 15 мин), твёрдость, истираемость, распадаемость.",uz:"Tabletirovka — granulat tabletkalarga presslash. Nazorat qilinadigan parametrlar: massa (har 15 daqiqada), qattiqlik, abrativlik, parchalanish."},
+  "sop": {ru:"SOP (Standard Operating Procedure) — стандартная операционная процедура. Пошаговая инструкция для выполнения каждой операции. Отступление от SOP без разрешения — нарушение GMP.",uz:"SOP — standart operatsion protsedura. Har bir operatsiyani bajarish uchun bosqichma-bosqich ko'rsatma. SOPdan ruxsatsiz chetlanish GMP buzilishi."},
+  "взвешивание": {ru:"Принцип четырёх глаз: каждое взвешивание проверяет второй оператор. Порядок: калибровка весов → тарирование → взвешивание → запись в протокол → подпись второго оператора.",uz:"To'rt ko'z tamoyili: har bir tortishni ikkinchi operator tekshiradi. Tartib: tarozini kalibrlash → tarirash → tortish → bayonnomaga yozish → ikkinchi operator imzosi."},
+  "контроль качества": {ru:"Основные испытания гранулята: гранулометрический состав (d10/d50/d90), насыпная плотность (индекс Карра), остаточная влажность (LOD), угол откоса, однородность смешивания.",uz:"Granulat asosiy sinovlari: granulometrik tarkib (d10/d50/d90), quyma zichlik (Karra indeksi), qoldiq namligi (LOD), qiyalik burchagi, aralashma bir xilligi."},
+  "default": {ru:"Я специализируюсь на вопросах фармацевтического производства. Могу рассказать о: GMP, грануляции (влажной/сухой), таблетировании, документации, отклонениях, CAPA, очистке оборудования, охране труда. Задайте конкретный вопрос!",uz:"Men farmatsevtika ishlab chiqarish masalalari bo'yicha ixtisoslashganman. GMP, granulatsiya, tabletirovka, hujjatlashtirish, CAPA va boshqalar haqida so'rashingiz mumkin."}
+};
+
+function getBotAnswer(q){
+  const ql=q.toLowerCase();
+  for(const [key,ans] of Object.entries(AI_KB)){
+    if(key!=='default' && ql.includes(key)) return ans[lang]||ans.ru;
+  }
+  return AI_KB.default[lang]||AI_KB.default.ru;
+}
+
+function addMsg(text, isUser){
+  const msgs=document.getElementById('chatMsgs');
+  const div=document.createElement('div');
+  div.className=isUser?'msg-user':'msg-bot';
+  const now=new Date();
+  const t=now.getHours()+':'+(now.getMinutes()<10?'0':'')+now.getMinutes();
+  div.innerHTML=`<div class="msg-bubble">${text.replace(/\n/g,'<br>')}</div><div class="msg-time">${t}</div>`;
+  msgs.appendChild(div);
+  msgs.scrollTop=msgs.scrollHeight;
+}
+
+function sendChat(){
+  const inp=document.getElementById('chatInput');
+  const q=inp.value.trim();
+  if(!q) return;
+  addMsg(q,true);
+  inp.value='';
+  const msgs=document.getElementById('chatMsgs');
+  const typing=document.createElement('div');
+  typing.className='msg-bot';
+  typing.innerHTML='<div class="typing-indicator"><div class="typing-dot"></div><div class="typing-dot"></div><div class="typing-dot"></div></div>';
+  msgs.appendChild(typing);
+  msgs.scrollTop=msgs.scrollHeight;
+  setTimeout(()=>{
+    msgs.removeChild(typing);
+    addMsg(getBotAnswer(q),false);
+  },800+Math.random()*600);
+}
+
+function sendChip(text){
+  document.getElementById('chatInput').value=text;
+  sendChat();
+}
+
+// ========== NAV ==========
+function showPage(name){
+  document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
+  document.querySelectorAll('.nav-link').forEach(l=>l.classList.remove('active'));
+  document.getElementById('page-'+name).classList.add('active');
+  const map={home:0,courses:1,search:2,assistant:3,profile:4};
+  const tabs=document.querySelectorAll('.nav-links .nav-link');
+  if(tabs[map[name]]) tabs[map[name]].classList.add('active');
+  if(name==='profile'){renderProfile();}
+  if(name==='courses'){renderAllCourses();}
+  updateStats();
+  window.scrollTo(0,0);
+}
+
+function toggleMobileNav(){document.getElementById('mobileNav').classList.toggle('open');}
+
+function toggleTheme(){
+  const html=document.documentElement;
+  const isDark=html.getAttribute('data-theme')==='dark';
+  html.setAttribute('data-theme',isDark?'light':'dark');
+  document.getElementById('themeBtn').textContent=isDark?'🌙':'☀️';
+  localStorage.setItem('theme',isDark?'light':'dark');
+}
+
+function showToast(msg){
+  const t=document.getElementById('toast');
+  t.textContent=msg;
+  t.classList.add('show');
+  setTimeout(()=>t.classList.remove('show'),3000);
+}
+
+// ========== INIT ==========
+(function init(){
+  const savedTheme=localStorage.getItem('theme')||'light';
+  document.documentElement.setAttribute('data-theme',savedTheme);
+  document.getElementById('themeBtn').textContent=savedTheme==='dark'?'☀️':'🌙';
+  setLang(lang);
+  renderHomeCourses();
+  updateStats();
+  document.getElementById('profileRegDate')&&(document.getElementById('profileRegDate').textContent=state.regDate);
+})();
+</script>
+</body>
+</html>
